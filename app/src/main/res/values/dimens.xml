@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="glide_img_height">180.00dp</dimen>
+    <dimen name="dp_img_info_height">50.00dp</dimen>
+    <dimen name="activity_padding">16.00dp</dimen>
+    <dimen name="text_height_drawer">20.00sp</dimen>
+    <dimen name="padding_right">10.00dp</dimen>
+    <dimen name="padding_left">10.00dp</dimen>
+    <dimen name="ic_width_drawer">64.00dp</dimen>
+    <dimen name="ic_height_drawer">64.00dp</dimen>
+    <dimen name="list_item_height_drawer">120.00dp</dimen>
+    <dimen name="item_padding_top">15.00dp</dimen>
+</resources>

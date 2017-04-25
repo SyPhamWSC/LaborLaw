@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"Luật Lao Động "</string>
+    <string name="nav_open">mở</string>
+    <string name="nav_close">đóng</string>
+    <string name="enter_guide">Hướng dẫn luật</string>
+    <string name="quiz">Trắc nghiệm</string>
+    <string name="book_mark">Đánh dấu</string>
+    <string name="ask">Hỏi Đáp</string>
+    <string name="check_update">Cập nhật mới</string>
+    <string name="settings">Cài đặt</string>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">"Labour Law "</string>
+    <string name="nav_open">open</string>
+    <string name="nav_close">close</string>
+    <string name="enter_guide">Enter Guide</string>
+    <string name="quiz">Quiz</string>
+    <string name="book_mark">Bookmarks</string>
+    <string name="ask">Frequently Asked Questions</string>
+    <string name="check_update">Updates</string>
+    <string name="settings">Settings</string>
+</resources>
