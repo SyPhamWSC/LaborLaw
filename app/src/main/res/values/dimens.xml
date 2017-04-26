@@ -10,4 +10,5 @@
     <dimen name="ic_height_drawer">64.00dp</dimen>
     <dimen name="list_item_height_drawer">120.00dp</dimen>
     <dimen name="item_padding_top">15.00dp</dimen>
+    <dimen name="toolbar_height">48.00dp</dimen>
 </resources>
