@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 
-public class FullDrawerLayout extends DrawerLayout{
+public class FullDrawerLayout extends DrawerLayout {
     private static final int MIN_DRAWER_MARGIN = 0; // dp
 
     public FullDrawerLayout(Context context) {

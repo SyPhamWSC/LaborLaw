@@ -5,7 +5,7 @@ public class ItemLvDrawer {
     private String description;
     private int imgSelected;
 
-    public ItemLvDrawer(String description, int imgUnSelected, int imgSelected){
+    public ItemLvDrawer(String description, int imgUnSelected, int imgSelected) {
         this.description = description;
         this.imgUnSelected = imgUnSelected;
         this.imgSelected = imgSelected;

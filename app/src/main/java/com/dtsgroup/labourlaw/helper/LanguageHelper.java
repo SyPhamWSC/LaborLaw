@@ -19,13 +19,13 @@ public class LanguageHelper {
         return setLocale(context, lang);
     }
 
-    public static Context onAttach(Context context, String defaultLanguage){
+    public static Context onAttach(Context context, String defaultLanguage) {
         String lang = getPersistedData(context, defaultLanguage);
-        return setLocale(context,lang);
+        return setLocale(context, lang);
     }
 
-    public static String getLanguage(Context context){
-        return getPersistedData(context,Locale.getDefault().getLanguage());
+    public static String getLanguage(Context context) {
+        return getPersistedData(context, Locale.getDefault().getLanguage());
     }
 
     public static Context setLocale(Context context, String language) {

@@ -9,6 +9,6 @@ public class AppController extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LanguageHelper.onAttach(base,"vi"));
+        super.attachBaseContext(LanguageHelper.onAttach(base, "vi"));
     }
 }

@@ -23,7 +23,7 @@ public class DrawerLvAdapter extends BaseAdapter {
     private Context context;
     private int itemSelected = 0;
 
-    public DrawerLvAdapter(Context context, List<ItemLvDrawer> lvDrawers){
+    public DrawerLvAdapter(Context context, List<ItemLvDrawer> lvDrawers) {
         this.context = context;
         this.itemLvDrawerList = lvDrawers;
         layoutInflater = LayoutInflater.from(context);
@@ -49,19 +49,19 @@ public class DrawerLvAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        if(convertView == null){
-            convertView = layoutInflater.inflate(R.layout.list_item_drawer,null);
+        if (convertView == null) {
+            convertView = layoutInflater.inflate(R.layout.list_item_drawer, null);
             holder = new ViewHolder();
             holder.desc = (TextView) convertView.findViewById(R.id.tv_descreption_item_drawer);
             holder.imgDes = (ImageView) convertView.findViewById(R.id.img_list_item_drawer);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if(position == itemSelected){
+        if (position == itemSelected) {
             holder.desc.setTextColor(context.getResources().getColor(R.color.selected));
             holder.imgDes.setImageResource(itemLvDrawerList.get(position).getImgSelected());
-        }else {
+        } else {
             holder.desc.setTextColor(context.getResources().getColor(R.color.un_selected));
             holder.imgDes.setImageResource(itemLvDrawerList.get(position).getImg());
         }
@@ -71,7 +71,8 @@ public class DrawerLvAdapter extends BaseAdapter {
 
         return convertView;
     }
-    public void setItemSelected(int position){
+
+    public void setItemSelected(int position) {
         this.itemSelected = position;
     }
 
