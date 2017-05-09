@@ -12,4 +12,6 @@ public class CommonVls {
     public static final String VIETNAMESE = "vi";
     public static final String ENGLISH = "en";
 
+    public static final String GET_URL = "https://bhld2017.herokuapp.com/api/bhld/";
+
 }

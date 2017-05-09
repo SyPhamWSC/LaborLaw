@@ -6,23 +6,32 @@
     android:layout_height="match_parent">
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:id="@+id/fm_content">
+
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:id="@+id/tb_main"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        </android.support.v7.widget.Toolbar>
-    </FrameLayout>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.v7.widget.Toolbar>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fm_fragment">
+
+        </FrameLayout>
+    </LinearLayout>
+
     <include
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         layout="@layout/dr_glide"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start" />
 
 </com.dtsgroup.labourlaw.helper.FullDrawerLayout>

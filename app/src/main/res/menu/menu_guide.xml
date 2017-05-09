@@ -7,7 +7,12 @@
         android:icon="@mipmap/ic_translate"
         android:orderInCategory="200"
         app:showAsAction="always"
-        android:title="@string/translate"
-        />
+        android:title="@string/translate" />
+    <item
+        android:id="@+id/menu_search"
+        android:icon="@mipmap/ic_search"
+        android:orderInCategory="200"
+        app:showAsAction="always"
+        android:title="@string/search" />
 
 </menu>

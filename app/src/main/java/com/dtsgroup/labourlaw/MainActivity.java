@@ -1,13 +1,10 @@
 package com.dtsgroup.labourlaw;
 
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.dtsgroup.labourlaw.activity.SearchActivity;
 import com.dtsgroup.labourlaw.adapter.DrawerLvAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.fragment.AskedFragment;
@@ -63,11 +61,16 @@ public class MainActivity extends AppCompatActivity {
 
     private List<ItemLvDrawer> listItemDrawer;
 
+    private FragmentManager manager;
+    FragmentTransaction transaction;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
 
         inits();
 
@@ -112,25 +115,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void inits() {
-        ButterKnife.bind(this);
-        drawertoggle = new ActionBarDrawerToggle(this, drawerLayout, null, R.string.nav_open, R.string.nav_close);
-        drawerLayout.setDrawerListener(drawertoggle);
-        drawerLayout.openDrawer(GravityCompat.START);
-
-        setSupportActionBar(tbMain);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        tbMain.setTitle(getResources().getString(R.string.enter_guide));
-
+    private void initFragment() {
         enterGuideFragment = new EnterGuideFragment();
         quizFragment = new QuizFragment();
         bookmarkFragment = new BookmarkFragment();
         askedFragment = new AskedFragment();
         updatesFragment = new UpdatesFragment();
         settingsFragment = new SettingsFragment();
+    }
+
+    private void inits() {
+        ButterKnife.bind(this);
+        setSupportActionBar(tbMain);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        drawertoggle = new ActionBarDrawerToggle(this, drawerLayout, tbMain, R.string.nav_open, R.string.nav_close);
+        drawerLayout.setDrawerListener(drawertoggle);
+        drawerLayout.openDrawer(GravityCompat.START);
+
+
+        tbMain.setTitle(getResources().getString(R.string.enter_guide));
+
+        initFragment();
 
         listItemDrawer = getListItemDrawerView();
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
         callFragment(enterGuideFragment);
     }
 
@@ -154,10 +165,9 @@ public class MainActivity extends AppCompatActivity {
         return lv;
     }
 
-    private void callFragment(Fragment fm){
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fm_content, fm);
+    private void callFragment(Fragment fm) {
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.fm_fragment, fm);
         transaction.commit();
     }
 
@@ -220,6 +230,9 @@ public class MainActivity extends AppCompatActivity {
                     updateViews(CommonVls.ENGLISH);
                 }
                 break;
+            case R.id.menu_search:
+                Intent mIntent = new Intent(this, SearchActivity.class);
+                startActivity(mIntent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -234,5 +247,7 @@ public class MainActivity extends AppCompatActivity {
             listItemDrawer.add(list.get(i));
         }
         drawerLvAdapter.notifyDataSetChanged();
+        initFragment();
+        setFragmentToView(pos);
     }
 }
