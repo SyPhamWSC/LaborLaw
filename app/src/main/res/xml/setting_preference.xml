@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+android:key="first_preferencescreen">
+<CheckBoxPreference
+    android:key="wifi enabled"
+    android:id="@+id/cb_notify"
+    android:title="@string/receive_notify" />
+<PreferenceScreen
+    android:key="second_preferencescreen"
+    android:title="@string/change_language">
+</PreferenceScreen>
+
+</PreferenceScreen>

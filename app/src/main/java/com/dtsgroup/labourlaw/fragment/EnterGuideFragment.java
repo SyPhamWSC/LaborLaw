@@ -58,10 +58,10 @@ public class EnterGuideFragment extends Fragment {
             }
         });
 
-        enterGuideLvAdapter = new EnterGuideLvAdapter(getContext(), listChapter);
+        enterGuideLvAdapter = new EnterGuideLvAdapter(getActivity(), listChapter);
         recyclerView.setAdapter(enterGuideLvAdapter);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         getAllChapterOfLaw();

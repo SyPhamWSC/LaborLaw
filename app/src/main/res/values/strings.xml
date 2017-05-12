@@ -11,5 +11,9 @@
     <string name="translate">Translate</string>
     <string name="search">Search</string>
     <string name="title_chapter_one">MINIMUM WORKING AGE</string>
+    <string name="title_tb_qa">QA</string>
+    <string name="receive_notify">Push notification</string>
+    <string name="change_language">Select language</string>
+    <string name="loading">Loading...</string>
 
 </resources>

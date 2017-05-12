@@ -12,7 +12,7 @@ import java.util.Locale;
 public class LanguageHelper {
 
     private static final String SELECT_LANGUAGE = "Locale.Helper.Selected.Language";
-
+    private static final String DB_SHARE = "MyDB";
 
     public static Context onAttach(Context context) {
         String lang = getPersistedData(context, Locale.getDefault().getLanguage());
@@ -66,13 +66,14 @@ public class LanguageHelper {
 
     private static String getPersistedData(Context context, String defaultLanguage) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+//        SharedPreferences preferences = context.getSharedPreferences(DB_SHARE,Context.MODE_PRIVATE);
         return preferences.getString(SELECT_LANGUAGE, defaultLanguage);
     }
 
     private static void persist(Context context, String language) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        //SharedPreferences preferences =context.getSharedPreferences(DB_SHARE,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-
         editor.putString(SELECT_LANGUAGE, language);
         editor.apply();
     }

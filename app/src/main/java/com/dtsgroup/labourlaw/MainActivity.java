@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private QuizFragment quizFragment;
     private BookmarkFragment bookmarkFragment;
     private UpdatesFragment updatesFragment;
-    private Fragment settingsFragment;
+    private SettingsFragment settingsFragment;
     private AskedFragment askedFragment;
 
     private int pos = 0; // get position of Fragment is showing;

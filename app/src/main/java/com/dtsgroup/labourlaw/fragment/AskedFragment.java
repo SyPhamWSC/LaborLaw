@@ -56,9 +56,9 @@ public class AskedFragment extends Fragment {
             }
         });
 
-        qaAdapter = new QAAdapter(getContext(), itemQAList);
+        qaAdapter = new QAAdapter(getActivity(), itemQAList);
         recyclerView.setAdapter(qaAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         getAllQA();
