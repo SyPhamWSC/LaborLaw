@@ -4,7 +4,9 @@ package com.dtsgroup.labourlaw.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class JSonItemQuiz {
+import java.io.Serializable;
+
+public class JSonItemQuiz implements Serializable{
     @SerializedName("id")
     @Expose
     private Integer id;

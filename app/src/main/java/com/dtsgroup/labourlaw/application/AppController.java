@@ -12,4 +12,8 @@ public class AppController extends Application {
         super.attachBaseContext(LanguageHelper.onAttach(base, "vi"));
     }
 
+    @Override
+    public Context getApplicationContext() {
+        return super.getApplicationContext();
+    }
 }

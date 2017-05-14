@@ -4,40 +4,45 @@ package com.dtsgroup.labourlaw.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.dtsgroup.labourlaw.common.CommonVls;
+import com.dtsgroup.labourlaw.fragment.ShowQuizFragment;
+import com.dtsgroup.labourlaw.model.JSonItemQuiz;
+
+import java.util.ArrayList;
 
 public class ShowQuizAdapter extends FragmentPagerAdapter{
 
-    private Fragment f1;
-    private Fragment f2;
-    private Fragment f3;
-    private Fragment f4;
-    private Fragment f5;
-    private Fragment f6;
-    private Fragment f7;
-    private Fragment f8;
-    private Fragment f9;
-    private Fragment f10;
+   private ArrayList<JSonItemQuiz> list;
+    private int result1 = 0;
+    private int result2 = 0;
+    private int result3 = 0;
+    private int result4 = 0;
+    private int result5 = 0;
+    private int result6 = 0;
+    private int result7 = 0;
+    private int result8 = 0;
+    private int result9 = 0;
+    private int result10 = 0;
+    private ShowQuizFragment f1,f2,f3,f4,f5,f6,f7,f8,f9,f10;
     public ShowQuizAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public ShowQuizAdapter(FragmentManager fm, Fragment f1, Fragment f2,
-                           Fragment f3, Fragment f4, Fragment f5,
-                           Fragment f6, Fragment f7, Fragment f8,
-                           Fragment f9, Fragment f10){
+    public ShowQuizAdapter(FragmentManager fm,ArrayList<JSonItemQuiz> list){
         super(fm);
-        this.f1 = f1;
-        this.f2 = f2;
-        this.f3 = f3;
-        this.f4 = f4;
-        this.f5 = f5;
-        this.f6 = f6;
-        this.f7 = f7;
-        this.f8 = f8;
-        this.f9 = f9;
-        this.f10 = f10;
+       this.list = list;
+        f1 = ShowQuizFragment.create(0,list.get(0));
+        f2 = ShowQuizFragment.create(1,list.get(1));
+        f3 = ShowQuizFragment.create(2,list.get(2));
+        f4 = ShowQuizFragment.create(3,list.get(3));
+        f5 = ShowQuizFragment.create(4,list.get(4));
+        f6 = ShowQuizFragment.create(5,list.get(5));
+        f7 = ShowQuizFragment.create(6,list.get(6));
+        f8 = ShowQuizFragment.create(7,list.get(7));
+        f9 = ShowQuizFragment.create(8,list.get(8));
+        f10 = ShowQuizFragment.create(9,list.get(9));
     }
 
     @Override
@@ -47,41 +52,51 @@ public class ShowQuizAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return CommonVls.NUMBER_QUIZ;
+        return list.size();
     }
 
     public Fragment callFragment(int pos){
-        Fragment f = null;
+        ShowQuizFragment f = null;
         switch (pos){
             case 0:
+//                f = ShowQuizFragment.create(pos,list.get(pos));
                 f = f1;
                 break;
             case 1:
-                f = f2;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f2;
                 break;
             case 2:
-                f = f3;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f3;
                 break;
             case 3:
-                f = f4;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f4;
                 break;
             case 4:
-                f = f5;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f5;
                 break;
             case 5:
-                f = f6;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f6;
                 break;
             case 6:
-                f = f7;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f7;
                 break;
             case 7:
-                f = f8;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f8;
                 break;
             case 8:
-                f = f9;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f9;
                 break;
             case 9:
-                f = f10;
+//                f = ShowQuizFragment.create(pos,list.get(pos));
+                f=f10;
                 break;
         }
         return f;

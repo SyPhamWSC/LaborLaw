@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginLeft="@dimen/padding_5_sp"
+    android:layout_marginLeft="@dimen/padding_5_dp"
     android:weightSum="10"
-    android:layout_marginTop="@dimen/padding_5_sp"
-    android:layout_marginBottom="@dimen/padding_5_sp">
+    android:layout_marginTop="@dimen/padding_5_dp"
+    android:layout_marginBottom="@dimen/padding_15_dp">
 
     <FrameLayout
         android:id="@+id/fl_img_qa"
@@ -35,8 +35,8 @@
             android:id="@+id/tv_title_qa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_5_sp"
-            android:layout_marginLeft="@dimen/padding_5_sp"
+            android:layout_margin="@dimen/padding_5_dp"
+            android:layout_marginLeft="@dimen/padding_5_dp"
             android:ellipsize="end"
             android:textColor="@color/selected"
             android:textSize="@dimen/default_text_size_16_sp"

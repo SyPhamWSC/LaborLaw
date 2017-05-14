@@ -10,8 +10,11 @@
         android:id="@+id/img_info_drawer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/glide_img_height"
-        android:src="@drawable/test"
-        android:background="@color/colorPrimary"/>
+        android:src="@mipmap/banner"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitXY"/>
 
     <ListView
         android:layout_width="match_parent"
@@ -26,6 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_img_info_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary"
+        android:src="@mipmap/footer_atvsv"
+        android:scaleType="fitXY"/>
 
 </RelativeLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:id="@+id/tb_reusult_quiz"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_appease"
+        android:layout_margin="@dimen/padding_10dp"
+        android:textColor="#FF8A80"
+        android:textSize="@dimen/text_size_24sp"
+        android:text="@string/unlucky_appease"
+        android:gravity="center_horizontal"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_result_activity_in_quiz"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="50sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:weightSum="3"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_try_quiz_again"
+                android:layout_weight="1"
+                android:text="@string/try_again"
+                android:gravity="center"
+                android:textSize="@dimen/default_text_size_16_sp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_review_quiz"
+                android:layout_weight="1"
+                android:text="@string/review_quiz"
+                android:gravity="center"
+                android:textSize="@dimen/default_text_size_16_sp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_view_detail_results"
+                android:layout_weight="1"
+                android:text="@string/result"
+                android:gravity="center"
+                android:textSize="@dimen/default_text_size_16_sp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

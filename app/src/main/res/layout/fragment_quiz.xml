@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
-        android:layout_marginTop="@dimen/padding_5_sp"
+        android:layout_marginTop="@dimen/padding_5_dp"
         android:id="@+id/vp_show_quiz"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_img_info_height"
+        android:background="@color/colorPrimary">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_back_white"
+            android:id="@+id/iv_back"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_next_white"
+            android:layout_alignParentRight="true"
+            android:id="@+id/iv_next"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_pos_fragment_quiz"
+            android:layout_centerInParent="true"
+            android:text="1/10"
+            android:textSize="@dimen/text_size_24sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+</RelativeLayout>

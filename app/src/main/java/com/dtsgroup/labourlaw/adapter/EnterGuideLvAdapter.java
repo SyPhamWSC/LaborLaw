@@ -2,6 +2,7 @@ package com.dtsgroup.labourlaw.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dtsgroup.labourlaw.R;
+import com.dtsgroup.labourlaw.activity.SubChapterLawActivity;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
+import com.dtsgroup.labourlaw.model.ItemEnterGuide;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
+import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 
 import java.util.List;
 
@@ -59,11 +63,24 @@ public class EnterGuideLvAdapter extends RecyclerView.Adapter<EnterGuideLvAdapte
         private TextView tvTitle;
         private TextView tvShorDescreption;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             tvCode = (TextView) itemView.findViewById(R.id.tv_code_postion);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvShorDescreption = (TextView) itemView.findViewById(R.id.tv_short_descreption);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    JSonChapterLaw item = list.get(getAdapterPosition());
+                    if(item.getTypeChapter().equals("content")){
+                        Intent mIntent = new Intent(itemView.getContext(),SubChapterLawActivity.class);
+                        int chapter = item.getId() - 1;
+                        mIntent.putExtra(CommonVls.SUB_CHAPTER_LAW,chapter);
+                        context.startActivity(mIntent);
+                    }
+                }
+            });
+
         }
     }
 }

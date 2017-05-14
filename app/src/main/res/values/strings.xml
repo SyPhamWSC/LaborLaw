@@ -15,5 +15,10 @@
     <string name="receive_notify">Push notification</string>
     <string name="change_language">Select language</string>
     <string name="loading">Loading...</string>
+    <string name="try_again">Try again</string>
+    <string name="review_quiz">Review quiz</string>
+    <string name="result">Results</string>
+    <string name="unlucky_appease">Unlucky! Read the guide for more helpful information!</string>
+    <string name="chapter">Chapter</string>
 
 </resources>

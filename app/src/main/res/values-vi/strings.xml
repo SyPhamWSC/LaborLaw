@@ -16,4 +16,9 @@
     <string name="receive_notify">Nhận thông báo mới nhất</string>
     <string name="change_language">Lựa chọn ngôn ngữ</string>
     <string name="loading">Loading...</string>
+    <string name="try_again">Thử lại</string>
+    <string name="review_quiz">Xưm lại</string>
+    <string name="result">Kết quả</string>
+    <string name="unlucky_appease">Tiếc quá, câu trả lời của bạn chưa hoàn chỉnh! Đọc lại hướng dẫn để có thêm thông tin hữu ích!</string>
+    <string name="chapter">Chapter</string>
 </resources>

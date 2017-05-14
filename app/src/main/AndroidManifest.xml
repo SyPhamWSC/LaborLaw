@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".activity.SearchActivity"/>
         <activity android:name=".activity.QADetailsActivity"/>
+        <activity android:name=".activity.ResultQuizActivity"/>
+        <activity android:name=".activity.SubChapterLawActivity"/>
 
     </application>
 

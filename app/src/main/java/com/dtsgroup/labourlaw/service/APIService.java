@@ -4,6 +4,7 @@ package com.dtsgroup.labourlaw.service;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.model.JSonItemQA;
 import com.dtsgroup.labourlaw.model.JSonItemQuiz;
+import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 
 import java.util.List;
 
@@ -19,4 +20,13 @@ public interface APIService {
 
     @GET("list_question")
     Call<List<JSonItemQuiz>> getAllQiz();
+
+    @GET("1")
+    Call<List<JSonItemSubChapterLaw>> getAllSubChapter1Law();
+
+    @GET("2")
+    Call<List<JSonItemSubChapterLaw>> getAllSubChapter2Law();
+
+    @GET("3")
+    Call<List<JSonItemSubChapterLaw>> getAllSubChapter3Law();
 }

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dtsgroup.labourlaw.R;
@@ -24,6 +25,8 @@ public class QADetailsActivity extends AppCompatActivity{
     Toolbar tb;
     @BindView(R.id.tv_title_qa)
     TextView tvQuestion;
+    @BindView(R.id.tv_detail_qa)
+    TextView tvDetail;
 
     private static final String TAG = "QADetailsActivity";
     private JSonItemQA itemQA;
@@ -56,8 +59,10 @@ public class QADetailsActivity extends AppCompatActivity{
 
         if (lang.equals(CommonVls.ENGLISH)) {
             tvQuestion.setText(itemQA.getQuestionEn());
+            tvDetail.setText(itemQA.getAnswerEn());
         } else if (lang.equals(CommonVls.VIETNAMESE)) {
             tvQuestion.setText(itemQA.getQuestionVi());
+            tvDetail.setText(itemQA.getAnswerVi());
         }
     }
 
