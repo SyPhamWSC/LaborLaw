@@ -32,6 +32,17 @@ public class JSonItemBookmark implements Serializable{
     @Expose
     private String titlevi;
 
+    public JSonItemBookmark(Integer id, String chapter, String nameVi, String nameEn, String descreptionVi, String descreptionEn, String titleEn, String titlevi) {
+        this.id = id;
+        this.chapter = chapter;
+        this.nameVi = nameVi;
+        this.nameEn = nameEn;
+        this.descreptionVi = descreptionVi;
+        this.descreptionEn = descreptionEn;
+        this.titleEn = titleEn;
+        this.titlevi = titlevi;
+    }
+
     public String getChapter() {
         return chapter;
     }

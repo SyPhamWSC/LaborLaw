@@ -77,15 +77,19 @@ public class IntroduceActivity extends AppCompatActivity {
                 } else {
                     updateViews(CommonVls.ENGLISH);
                 }
-
                 EventBus.getDefault().post(new EventMessage(CommonVls.ACTION_UPDATE_LANGUAGE));
+                break;
+            case R.id.menu_search:
+                Intent intent = new Intent(this,SearchActivity.class);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void updateViews(String language) {
-        initContent();
         LanguageHelper.setLocale(this,language);
+        initContent();
     }
     @Override
     protected void onStart() {

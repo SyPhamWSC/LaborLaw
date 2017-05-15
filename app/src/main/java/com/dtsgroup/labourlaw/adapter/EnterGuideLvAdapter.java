@@ -83,7 +83,7 @@ public class EnterGuideLvAdapter extends RecyclerView.Adapter<EnterGuideLvAdapte
                         Intent intent = new Intent(context, ActivityAppendix.class);
                         context.startActivity(intent);
                     }
-                    if(item.getTypeChapter().equals("introduce")){
+                    else if(item.getTypeChapter().equals("introduce")){
                         Intent mIntent = new Intent(itemView.getContext(), IntroduceActivity.class);
                         mIntent.putExtra(CommonVls.INTRODUCE_VI,item.getDescriptionVi());
                         mIntent.putExtra(CommonVls.INTRODUCE_EN,item.getDescriptionEn());

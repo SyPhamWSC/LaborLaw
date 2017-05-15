@@ -18,6 +18,7 @@ import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.DetailBookmarkActivity;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
+import com.dtsgroup.labourlaw.interaction.IClickListener;
 import com.dtsgroup.labourlaw.model.EventMessage;
 import com.dtsgroup.labourlaw.model.JSonItemBookmark;
 import com.dtsgroup.labourlaw.service.APIService;
@@ -37,11 +38,16 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
     private List<JSonItemBookmark> list;
     private LayoutInflater layoutInflater;
     private Context context;
+    private IClickListener clickListener;
 
     public BookmarkAdapter(Context context, List<JSonItemBookmark> list){
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
+    }
+
+    public void setClickListener(IClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -60,6 +66,12 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             holder.tvNameChapter.setText(itemBookmark.getNameVi());
         }
         holder.tvChapter.setText(itemBookmark.getChapter());
+        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onRemoveBookmark(itemBookmark.getChapter());
+            }
+        });
     }
 
     @Override
@@ -81,47 +93,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             tvChapter = (TextView) itemView.findViewById(R.id.tv_chapter_bookmark);
             tvNameChapter = (TextView) itemView.findViewById(R.id.tv_name_chapter_bookmark);
             ivDelete = (ImageView) itemView.findViewById(R.id.iv_delte_item_bookmark);
-            ivDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                    alertDialogBuilder.setMessage(context.getResources().getString(R.string.delete_item));
-                    alertDialogBuilder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-//                            Retrofit retrofit = new Retrofit.Builder()
-//                                    .baseUrl(CommonVls.GET_URL)
-//                                    .addConverterFactory(GsonConverterFactory.create())
-//                                    .build();
-//                            APIService apiService = retrofit.create(APIService.class);
-//                            Call<JSonItemBookmark> call = apiService.deleteitem(list.get(getAdapterPosition()).getId());
-//                            call.enqueue(new Callback<JSonItemBookmark>() {
-//                                @Override
-//                                public void onResponse(Call<JSonItemBookmark> call, Response<JSonItemBookmark> response) {
-//                                    EventBus.getDefault().post(new EventMessage(CommonVls.UPDATE_ADAPTER));
-//                                }
-//
-//                                @Override
-//                                public void onFailure(Call<JSonItemBookmark> call, Throwable t) {
-//
-//                                }
-//                            });
-
-                            Toast.makeText(context,"Needed API",Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                    alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
-                }
-            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

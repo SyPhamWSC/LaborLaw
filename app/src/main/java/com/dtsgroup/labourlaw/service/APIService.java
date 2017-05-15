@@ -42,6 +42,10 @@ public interface APIService {
     @POST("search_laws")
     Call<List<JSonItemSubChapterLaw>> getAllSearch(@Field("s") String search);
 
+    @FormUrlEncoded
+    @POST("remove_chapter")
+    Call<List<JSonItemBookmark>> removeBookmark(@Field("chapter") String chapter);
+
     @GET("1")
     Call<List<JSonItemSubChapterLaw>> getAllSubChapter1Law();
 
