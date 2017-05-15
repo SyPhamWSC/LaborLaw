@@ -22,9 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/tb_main"
-            android:id="@+id/fm_fragment"/>
+            android:id="@+id/fm_fragment"
+            android:layout_above="@+id/iv_footer"/>
 
         <ImageView
+            android:id="@+id/iv_footer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_img_info_height"
             android:layout_alignParentBottom="true"

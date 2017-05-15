@@ -35,4 +35,5 @@ public class CommonVls {
     public static final String KEY_DETAIL_LAW = "DETAIL_LAW";
     public static final String BUNDLE_DETAIL_LAW = "BUNDLE_DETAIL_LAW";
     public static final String ACTION_UPDATE_LANGUAGE = "UPDATE_LANGUAGE";
+    public static final String RELOAD_QUIZ = "RELOAD_QUIZ";
 }
