@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -13,10 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.dtsgroup.labourlaw.R;
+import com.dtsgroup.labourlaw.activity.ActivityDetailLaw;
 import com.dtsgroup.labourlaw.adapter.EnterGuideLvAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.service.APIService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,30 @@ public class EnterGuideFragment extends Fragment {
         initDataView();
 
         return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!EventBus.getDefault().isRegistered(EnterGuideFragment.this)){
+            EventBus.getDefault().register(EnterGuideFragment.this);
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(EventBus.getDefault().isRegistered(EnterGuideFragment.this)){
+            EventBus.getDefault().unregister(EnterGuideFragment.this);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(String s) {
+        Log.e(TAG, "onMessageEvent from EnterGuideFragment: " + s);
+        enterGuideLvAdapter.notifyDataSetChanged();
     }
 
     private void initDataView() {
@@ -79,13 +109,13 @@ public class EnterGuideFragment extends Fragment {
         call.enqueue(new Callback<List<JSonChapterLaw>>() {
             @Override
             public void onResponse(Call<List<JSonChapterLaw>> call, Response<List<JSonChapterLaw>> response) {
-                mSrlLayout.setRefreshing(false);
                 listChapter.clear();
                 List<JSonChapterLaw> list = response.body();
                 for (int i = 0; i < list.size(); i++) {
                     listChapter.add(list.get(i));
                 }
                 enterGuideLvAdapter.notifyDataSetChanged();
+                mSrlLayout.setRefreshing(false);
             }
 
             @Override

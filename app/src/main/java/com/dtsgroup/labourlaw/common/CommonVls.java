@@ -32,4 +32,6 @@ public class CommonVls {
     public static final String QUESTION_QUIZ_10 = "q10";
 
     public static final String SUB_CHAPTER_LAW = "sub_chapter";
+    public static final String KEY_DETAIL_LAW = "DETAIL_LAW";
+    public static final String BUNDLE_DETAIL_LAW = "BUNDLE_DETAIL_LAW";
 }

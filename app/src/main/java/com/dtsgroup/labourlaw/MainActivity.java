@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.dtsgroup.labourlaw.activity.ActivityDetailLaw;
 import com.dtsgroup.labourlaw.activity.SearchActivity;
 import com.dtsgroup.labourlaw.adapter.DrawerLvAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
@@ -31,6 +32,10 @@ import com.dtsgroup.labourlaw.fragment.UpdatesFragment;
 import com.dtsgroup.labourlaw.helper.FullDrawerLayout;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
 import com.dtsgroup.labourlaw.model.ItemLvDrawer;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -230,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     updateViews(CommonVls.ENGLISH);
                 }
+                EventBus.getDefault().post("update list");
                 break;
             case R.id.menu_search:
                 Intent mIntent = new Intent(this, SearchActivity.class);
@@ -248,7 +254,27 @@ public class MainActivity extends AppCompatActivity {
             listItemDrawer.add(list.get(i));
         }
         drawerLvAdapter.notifyDataSetChanged();
-        initFragment();
-        setFragmentToView(pos);
+
+//        initFragment();
+//        setFragmentToView(pos);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!EventBus.getDefault().isRegistered(MainActivity.this)){
+            EventBus.getDefault().register(MainActivity.this);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(MainActivity.this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(String s) {
+        Log.e(TAG, "onMessageEvent from MainActivity: " + s);
     }
 }

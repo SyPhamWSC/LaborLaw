@@ -10,6 +10,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface APIService {
     @GET("getlaws")
@@ -20,6 +21,8 @@ public interface APIService {
 
     @GET("list_question")
     Call<List<JSonItemQuiz>> getAllQiz();
+    @GET("{num_chapter}")
+    Call<List<JSonItemSubChapterLaw>> getAllSubChapterLaw(@Path("num_chapter") int num_chapter);
 
     @GET("1")
     Call<List<JSonItemSubChapterLaw>> getAllSubChapter1Law();

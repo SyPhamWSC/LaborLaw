@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.dtsgroup.labourlaw.R;
@@ -89,24 +90,25 @@ public class SubChapterLawActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIService apiService = retrofit.create(APIService.class);
-        Call<List<JSonItemSubChapterLaw>> call = null;
-        if(parentChapter == 1){
-            call = apiService.getAllSubChapter1Law();
-        } if (parentChapter == 2){
-            call = apiService.getAllSubChapter2Law();
-        } if(parentChapter == 3){
-            call = apiService.getAllSubChapter3Law();
-        }
+        Call<List<JSonItemSubChapterLaw>> call = apiService.getAllSubChapterLaw(parentChapter);
+//        if(parentChapter == 1){
+//            call = apiService.getAllSubChapter1Law();
+//        } if (parentChapter == 2){
+//            call = apiService.getAllSubChapter2Law();
+//        } if(parentChapter == 3){
+//            call = apiService.getAllSubChapter3Law();
+//        }
         call.enqueue(new Callback<List<JSonItemSubChapterLaw>>() {
             @Override
             public void onResponse(Call<List<JSonItemSubChapterLaw>> call, Response<List<JSonItemSubChapterLaw>> response) {
-                swipeRefreshLayout.setRefreshing(false);
+
                 listSubChapter.clear();
                 List<JSonItemSubChapterLaw> listTemp = response.body();
                 for (int i = 0; i < listTemp.size(); i++) {
                     listSubChapter.add(listTemp.get(i));
                 }
                 subLawAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -115,5 +117,14 @@ public class SubChapterLawActivity extends AppCompatActivity {
                 Toast.makeText(SubChapterLawActivity.this,"Load fail", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

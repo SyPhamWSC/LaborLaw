@@ -1,6 +1,8 @@
 package com.dtsgroup.labourlaw.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dtsgroup.labourlaw.R;
+import com.dtsgroup.labourlaw.activity.ActivityDetailLaw;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
@@ -35,7 +38,7 @@ public class SubLawAdapter  extends RecyclerView.Adapter<SubLawAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        JSonItemSubChapterLaw item = list.get(position);
+        final JSonItemSubChapterLaw item = list.get(position);
 
         String lang = LanguageHelper.getLanguage(context);
         if (lang.equals(CommonVls.ENGLISH)) {
@@ -44,6 +47,16 @@ public class SubLawAdapter  extends RecyclerView.Adapter<SubLawAdapter.ViewHolde
             holder.tvTitle.setText(item.getChapterNameVi());
         }
         holder.tvCode.setText(item.getSubChapter());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ActivityDetailLaw.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(CommonVls.KEY_DETAIL_LAW,item);
+                intent.putExtra(CommonVls.BUNDLE_DETAIL_LAW,bundle);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

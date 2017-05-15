@@ -6,7 +6,6 @@
     android:layout_marginBottom="@dimen/item_padding_top"
     android:layout_marginLeft="@dimen/item_padding_top"
     android:layout_marginRight="@dimen/item_padding_top"
-    card_view:cardCornerRadius="@dimen/card_corner_radius"
     card_view:cardElevation="@dimen/card_elevation"
     android:maxHeight="@dimen/li_enter_guide_height">
 
@@ -18,7 +17,7 @@
 
         <FrameLayout
             android:id="@+id/fl_chapter_sub_layout"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2">
