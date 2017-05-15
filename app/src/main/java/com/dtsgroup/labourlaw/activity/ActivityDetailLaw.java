@@ -1,5 +1,6 @@
 package com.dtsgroup.labourlaw.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
+import com.dtsgroup.labourlaw.model.EventMessage;
 import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 
 import org.greenrobot.eventbus.EventBus;
@@ -78,8 +80,8 @@ public class ActivityDetailLaw extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(String s) {
-        Log.e(TAG, "onMessageEvent from ActivityDetailLaw: " + s);
+    public void onMessageEvent(EventMessage ev) {
+
     }
 
     private void initContent() {
@@ -115,7 +117,7 @@ public class ActivityDetailLaw extends AppCompatActivity {
                     updateViews(CommonVls.ENGLISH);
                 }
 
-                EventBus.getDefault().post("Listen change for language");
+                EventBus.getDefault().post(new EventMessage(CommonVls.ACTION_UPDATE_LANGUAGE));
                 break;
             case R.id.menu_search:
                 Intent mIntent = new Intent(this, SearchActivity.class);

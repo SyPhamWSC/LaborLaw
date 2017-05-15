@@ -14,9 +14,14 @@ import android.widget.Toast;
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.adapter.SubLawAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
+import com.dtsgroup.labourlaw.model.EventMessage;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import com.dtsgroup.labourlaw.service.APIService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +88,28 @@ public class SubChapterLawActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!EventBus.getDefault().isRegistered(SubChapterLawActivity.this)){
+            EventBus.getDefault().register(SubChapterLawActivity.this);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(SubChapterLawActivity.this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventMessage ev) {
+        if(ev.getAction().equals(CommonVls.ACTION_UPDATE_LANGUAGE)){
+            subLawAdapter.notifyDataSetChanged();
+        }
+
+    }
+
     public void getAllSubChapterLaw() {
         swipeRefreshLayout.setRefreshing(true);
         Retrofit retrofit = new Retrofit.Builder()
@@ -91,13 +118,6 @@ public class SubChapterLawActivity extends AppCompatActivity {
                 .build();
         APIService apiService = retrofit.create(APIService.class);
         Call<List<JSonItemSubChapterLaw>> call = apiService.getAllSubChapterLaw(parentChapter);
-//        if(parentChapter == 1){
-//            call = apiService.getAllSubChapter1Law();
-//        } if (parentChapter == 2){
-//            call = apiService.getAllSubChapter2Law();
-//        } if(parentChapter == 3){
-//            call = apiService.getAllSubChapter3Law();
-//        }
         call.enqueue(new Callback<List<JSonItemSubChapterLaw>>() {
             @Override
             public void onResponse(Call<List<JSonItemSubChapterLaw>> call, Response<List<JSonItemSubChapterLaw>> response) {

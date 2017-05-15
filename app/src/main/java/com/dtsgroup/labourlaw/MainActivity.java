@@ -31,6 +31,7 @@ import com.dtsgroup.labourlaw.fragment.SettingsFragment;
 import com.dtsgroup.labourlaw.fragment.UpdatesFragment;
 import com.dtsgroup.labourlaw.helper.FullDrawerLayout;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
+import com.dtsgroup.labourlaw.model.EventMessage;
 import com.dtsgroup.labourlaw.model.ItemLvDrawer;
 
 import org.greenrobot.eventbus.EventBus;
@@ -235,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     updateViews(CommonVls.ENGLISH);
                 }
-                EventBus.getDefault().post("update list");
+                EventBus.getDefault().post(new EventMessage(CommonVls.ACTION_UPDATE_LANGUAGE));
                 break;
             case R.id.menu_search:
                 Intent mIntent = new Intent(this, SearchActivity.class);
@@ -270,11 +271,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e(TAG, "onDestroy: " );
         EventBus.getDefault().unregister(MainActivity.this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(String s) {
-        Log.e(TAG, "onMessageEvent from MainActivity: " + s);
+    public void onMessageEvent(EventMessage ev) {
+        Log.e(TAG, "onMessageEvent from MainActivity: " );
+        if(ev.getAction().equals(CommonVls.ACTION_UPDATE_LANGUAGE)){
+            setTitleToolBar(pos);
+            List<ItemLvDrawer> list = getListItemDrawerView();
+            listItemDrawer.clear();
+            for (int i = 0; i < list.size(); i++) {
+                listItemDrawer.add(list.get(i));
+            }
+           drawerLvAdapter.notifyDataSetChanged();
+        }
     }
 }

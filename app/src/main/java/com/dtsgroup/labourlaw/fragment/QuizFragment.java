@@ -12,14 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.ResultQuizActivity;
 import com.dtsgroup.labourlaw.adapter.ShowQuizAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
+import com.dtsgroup.labourlaw.model.EventMessage;
 import com.dtsgroup.labourlaw.model.JSonItemQuiz;
 import com.dtsgroup.labourlaw.service.APIService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +54,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     private ImageView ivBack;
     private TextView tvPosItem;
     private int posItem = 0;
-    private ShowQuizFragment f1,f2,f3,f4,f5,f6,f7,f8,f9,f10;
+    private ShowQuizFragment frag1, frag2, frag3, frag4, frag5, frag6, frag7, frag8, frag9, frag10;
 
     @Nullable
     @Override
@@ -116,7 +120,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                 pagerAdapter = new ShowQuizAdapter(getChildFragmentManager(), listQuiz);
                 viewPager.setAdapter(pagerAdapter);
                 viewPager.setCurrentItem(0);
-                f1 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 0);
+                frag1 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 0);
             }
 
             @Override
@@ -141,32 +145,32 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                 if (posItem < 9) {
                     switch (posItem){
                         case 0:
-                            f1 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 0);
+                            frag1 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 0);
                             break;
                         case 1:
-                            f2 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 1);
+                            frag2 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 1);
                             break;
                         case 2:
-                            f3 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 2);
+                            frag3 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 2);
                             break;
 
                         case 3:
-                            f4 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 3);
+                            frag4 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 3);
                             break;
                         case 4:
-                            f5 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 4);
+                            frag5 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 4);
                             break;
                         case 5:
-                            f6 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 5);
+                            frag6 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 5);
                             break;
                         case 6:
-                            f7 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 6);
+                            frag7 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 6);
                             break;
                         case 7:
-                            f8 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 7);
+                            frag8 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 7);
                             break;
                         case 8:
-                            f9 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 8);
+                            frag9 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 8);
                             break;
 
 
@@ -175,7 +179,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                     viewPager.setCurrentItem(posItem);
                     tvPosItem.setText(posItem + 1 + "/10");
                 } else {
-                    f10 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 9);
+                    frag10 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 9);
                     Intent mIntent = new Intent(getActivity(), ResultQuizActivity.class);
                     mIntent.putExtra(CommonVls.RESULT_QUIZ,result());
                     mIntent.putExtra(CommonVls.QUESTION_QUIZ_1,listQuiz.get(0));
@@ -202,10 +206,35 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     }
     private int result(){
         int resultQuiz = 0;
-            resultQuiz = f1.resultAnswerQuiz() + f2.resultAnswerQuiz() + f3.resultAnswerQuiz()
-                    + f4.resultAnswerQuiz()+ f5.resultAnswerQuiz()+ f6.resultAnswerQuiz()
-                    + f7.resultAnswerQuiz()+ f8.resultAnswerQuiz()+ f9.resultAnswerQuiz()+ f10.resultAnswerQuiz();
+            resultQuiz = frag1.resultAnswerQuiz() + frag2.resultAnswerQuiz() + frag3.resultAnswerQuiz()
+                    + frag4.resultAnswerQuiz()+ frag5.resultAnswerQuiz()+ frag6.resultAnswerQuiz()
+                    + frag7.resultAnswerQuiz()+ frag8.resultAnswerQuiz()+ frag9.resultAnswerQuiz()+ frag10.resultAnswerQuiz();
 
         return resultQuiz;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventMessage ev) {
+        if(ev.getAction().equals(CommonVls.ACTION_UPDATE_LANGUAGE)){
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+            pagerAdapter.notifyDataSetChanged();
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+
+        }
+
     }
 }

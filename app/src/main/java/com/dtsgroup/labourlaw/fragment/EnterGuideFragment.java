@@ -17,6 +17,7 @@ import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.ActivityDetailLaw;
 import com.dtsgroup.labourlaw.adapter.EnterGuideLvAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
+import com.dtsgroup.labourlaw.model.EventMessage;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.service.APIService;
 
@@ -71,9 +72,11 @@ public class EnterGuideFragment extends Fragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(String s) {
-        Log.e(TAG, "onMessageEvent from EnterGuideFragment: " + s);
-        enterGuideLvAdapter.notifyDataSetChanged();
+    public void onMessageEvent(EventMessage ev) {
+        if(ev.getAction().equals(CommonVls.ACTION_UPDATE_LANGUAGE)){
+            enterGuideLvAdapter.notifyDataSetChanged();
+        }
+
     }
 
     private void initDataView() {
