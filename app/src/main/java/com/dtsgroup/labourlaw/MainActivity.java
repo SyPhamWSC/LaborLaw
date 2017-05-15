@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
+        //
         enterGuideFragment = new EnterGuideFragment();
         quizFragment = new QuizFragment();
         bookmarkFragment = new BookmarkFragment();
