@@ -23,5 +23,6 @@
     <string name="title_activity_detail_law">ActivityDetailLaw</string>
     <string name="chapter_vi">Chương</string>
     <string name="search_hint">Tìm kiếm</string>
+    <string name="appendix">Appendix</string>
 
 </resources>

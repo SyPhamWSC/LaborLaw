@@ -26,6 +26,8 @@
         <activity android:name=".activity.ResultQuizActivity" />
         <activity android:name=".activity.SubChapterLawActivity" />
         <activity android:name=".activity.ActivityDetailLaw" />
+        <activity android:name=".activity.ActivityAppendix" />
+        <activity android:name=".activity.ActivityDetailAppendix" />
     </application>
 
 </manifest>

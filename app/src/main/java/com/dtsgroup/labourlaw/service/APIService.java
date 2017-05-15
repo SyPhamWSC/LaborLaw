@@ -1,6 +1,7 @@
 package com.dtsgroup.labourlaw.service;
 
 
+import com.dtsgroup.labourlaw.model.Appendix;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.model.JSonItemBookmark;
 import com.dtsgroup.labourlaw.model.JSonItemQA;
@@ -25,6 +26,8 @@ public interface APIService {
 
     @GET("list_question")
     Call<List<JSonItemQuiz>> getAllQiz();
+    @GET("get_appendix")
+    Call<List<Appendix>> getAllAppendix();
     @GET("{num_chapter}")
     Call<List<JSonItemSubChapterLaw>> getAllSubChapterLaw(@Path("num_chapter") int num_chapter);
 
