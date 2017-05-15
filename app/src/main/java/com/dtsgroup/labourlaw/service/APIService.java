@@ -9,7 +9,10 @@ import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface APIService {
@@ -23,6 +26,10 @@ public interface APIService {
     Call<List<JSonItemQuiz>> getAllQiz();
     @GET("{num_chapter}")
     Call<List<JSonItemSubChapterLaw>> getAllSubChapterLaw(@Path("num_chapter") int num_chapter);
+
+    @FormUrlEncoded
+    @POST("search_laws")
+    Call<List<JSonItemSubChapterLaw>> getAllSearch(@Field("s") String search);
 
     @GET("1")
     Call<List<JSonItemSubChapterLaw>> getAllSubChapter1Law();

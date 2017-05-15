@@ -1,15 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_auto_search_id"
     android:layout_width="match_parent"
+    android:layout_marginLeft="20dp"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_search"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.v7.widget.Toolbar>
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <AutoCompleteTextView
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_search"
+                android:dropDownVerticalOffset="5dp"
+                android:dropDownWidth="wrap_content"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="textAutoComplete|textAutoCorrect"
+                android:paddingLeft="15dp"
+                android:paddingRight="30dp"
+                android:popupBackground="@android:color/white"
+                android:scrollbars="vertical"
+                android:textColor="@color/un_selected"
+                android:textColorHint="@color/un_selected"
+                android:textSize="18dp">
+
+                <requestFocus />
+            </AutoCompleteTextView>
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/img_close_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignRight="@+id/tv_search"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:src="@drawable/ic_close" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"></LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
