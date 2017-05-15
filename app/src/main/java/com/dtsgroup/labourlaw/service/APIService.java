@@ -34,6 +34,12 @@ public interface APIService {
                                     @Field("title_vi") String titleVi, @Field("title_en") String titleEn,
                                     @Field("description_vi") String descVi, @Field("description_en") String descEn, @Field("chapter") String chapter);
 
+    @POST("search_laws")
+    Call<List<JSonItemSubChapterLaw>> getAllSearch(@Field("s") String search);
+
+    @GET("1")
+    Call<List<JSonItemSubChapterLaw>> getAllSubChapter1Law();
+
     @GET("bookmarks")
     Call<List<JSonItemBookmark>> getBookmarks();
 }
