@@ -24,5 +24,8 @@
     <string name="chapter_vi">Chương</string>
     <string name="search_hint">Tìm kiếm</string>
     <string name="appendix">Appendix</string>
-
+    <string name="introduce">Introduce</string>
+    <string name="delete_item">Delete bookmark?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

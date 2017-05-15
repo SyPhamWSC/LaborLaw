@@ -37,4 +37,10 @@ public class CommonVls {
     public static final String ACTION_UPDATE_LANGUAGE = "UPDATE_LANGUAGE";
     public static final String KEY_APPENDIX = "KEY_APPENDIX";
     public static final String BUNDLE_APPENDIX = "BUNDLE_APPENDIX";
+    public static final String RELOAD_QUIZ = "RELOAD_QUIZ";
+    public static final String INTRODUCE_VI = "introduce_vi";
+    public static final String INTRODUCE_EN = "introduce_en";
+    public static final String UPDATE_ADAPTER = "update_adapter";
+    public static final String BUNDLE_DETAIL_BOOKMARK = "BUNDLE_DETAIL_BOOKMARK";
+    public static final String KEY_DETAIL_BOOKMARK = "KEY_DETAIL_BOOKMARK";
 }

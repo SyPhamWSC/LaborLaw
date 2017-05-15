@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -60,15 +61,17 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quiz, container, false);
-
-        getAllQuestionQuiz();
-
         ivNext = (ImageView) view.findViewById(R.id.iv_next);
         ivBack = (ImageView) view.findViewById(R.id.iv_back);
         tvPosItem = (TextView) view.findViewById(R.id.tv_pos_fragment_quiz);
 
         ivBack.setOnClickListener(this);
         ivNext.setOnClickListener(this);
+        ivBack.setClickable(false);
+        ivNext.setClickable(false);
+        getAllQuestionQuiz();
+
+
 
         return view;
     }
@@ -100,6 +103,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getAllQuestionQuiz() {
+        posItem = 0;
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CommonVls.GET_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -110,6 +114,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<List<JSonItemQuiz>> call, Response<List<JSonItemQuiz>> response) {
                 List<JSonItemQuiz> listTemp = response.body();
+                Log.e(TAG, "onResponse: "+response);
                 listAllQuestion.clear();
                 for (int i = 0; i < listTemp.size(); i++) {
                     listAllQuestion.add(listTemp.get(i));
@@ -138,6 +143,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                     }
                 });
                 frag1 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 0);
+                ivBack.setClickable(true);
+                ivNext.setClickable(true);
             }
 
             @Override
@@ -198,7 +205,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                 } else {
                     frag10 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 9);
                     Intent mIntent = new Intent(getActivity(), ResultQuizActivity.class);
-                    mIntent.putExtra(CommonVls.RESULT_QUIZ,result());
+                    int result = result();
+                    mIntent.putExtra(CommonVls.RESULT_QUIZ,result);
                     mIntent.putExtra(CommonVls.QUESTION_QUIZ_1,listQuiz.get(0));
                     mIntent.putExtra(CommonVls.QUESTION_QUIZ_2,listQuiz.get(1));
                     mIntent.putExtra(CommonVls.QUESTION_QUIZ_3,listQuiz.get(2));
@@ -223,7 +231,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     }
     private int result(){
         int resultQuiz = 0;
-            resultQuiz = frag1.resultAnswerQuiz() + frag2.resultAnswerQuiz() + frag3.resultAnswerQuiz()
+        resultQuiz = frag1.resultAnswerQuiz() + frag2.resultAnswerQuiz() + frag3.resultAnswerQuiz()
                     + frag4.resultAnswerQuiz()+ frag5.resultAnswerQuiz()+ frag6.resultAnswerQuiz()
                     + frag7.resultAnswerQuiz()+ frag8.resultAnswerQuiz()+ frag9.resultAnswerQuiz()+ frag10.resultAnswerQuiz();
 
@@ -251,7 +259,27 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             pagerAdapter = new ShowQuizAdapter(getChildFragmentManager(), listQuiz);
             viewPager.setAdapter(pagerAdapter);
             viewPager.setCurrentItem(posItem);
+        }else if(ev.getAction().equals(CommonVls.RELOAD_QUIZ)){
+            Log.e(TAG, "onMessageEvent: RELOAD_QUIZ");
+            getAllQuestionQuiz();
+            tvPosItem.setText((posItem+1)+"/10");
+
         }
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

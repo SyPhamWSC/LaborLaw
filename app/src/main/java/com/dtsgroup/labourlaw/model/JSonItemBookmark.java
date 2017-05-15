@@ -4,7 +4,9 @@ package com.dtsgroup.labourlaw.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class JSonItemBookmark {
+import java.io.Serializable;
+
+public class JSonItemBookmark implements Serializable{
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -84,5 +86,13 @@ public class JSonItemBookmark {
 
     public void setTitlevi(String titlevi) {
         this.titlevi = titlevi;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

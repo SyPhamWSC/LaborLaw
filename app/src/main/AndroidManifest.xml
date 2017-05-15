@@ -28,6 +28,8 @@
         <activity android:name=".activity.ActivityDetailLaw" />
         <activity android:name=".activity.ActivityAppendix" />
         <activity android:name=".activity.ActivityDetailAppendix" />
+        <activity android:name=".activity.IntroduceActivity"/>
+        <activity android:name=".activity.DetailBookmarkActivity"/>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.ActivityAppendix;
+import com.dtsgroup.labourlaw.activity.IntroduceActivity;
 import com.dtsgroup.labourlaw.activity.SubChapterLawActivity;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
@@ -81,6 +82,12 @@ public class EnterGuideLvAdapter extends RecyclerView.Adapter<EnterGuideLvAdapte
                     }else if(item.getTypeChapter().equals("addendum")){
                         Intent intent = new Intent(context, ActivityAppendix.class);
                         context.startActivity(intent);
+                    }
+                    if(item.getTypeChapter().equals("introduce")){
+                        Intent mIntent = new Intent(itemView.getContext(), IntroduceActivity.class);
+                        mIntent.putExtra(CommonVls.INTRODUCE_VI,item.getDescriptionVi());
+                        mIntent.putExtra(CommonVls.INTRODUCE_EN,item.getDescriptionEn());
+                        context.startActivity(mIntent);
                     }
                 }
             });

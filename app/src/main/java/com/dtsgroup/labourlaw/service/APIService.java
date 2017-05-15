@@ -11,6 +11,7 @@ import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -37,6 +38,7 @@ public interface APIService {
                                     @Field("title_vi") String titleVi, @Field("title_en") String titleEn,
                                     @Field("description_vi") String descVi, @Field("description_en") String descEn, @Field("chapter") String chapter);
 
+    @FormUrlEncoded
     @POST("search_laws")
     Call<List<JSonItemSubChapterLaw>> getAllSearch(@Field("s") String search);
 
@@ -45,4 +47,8 @@ public interface APIService {
 
     @GET("bookmarks")
     Call<List<JSonItemBookmark>> getBookmarks();
+
+    @FormUrlEncoded
+    @DELETE("bookmarks")
+    Call<JSonItemBookmark> deleteitem(@Field("id") int id);
 }
