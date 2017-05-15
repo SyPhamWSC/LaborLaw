@@ -15,7 +15,6 @@ import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.adapter.SubLawAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.model.EventMessage;
-import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import com.dtsgroup.labourlaw.service.APIService;
 
@@ -62,7 +61,7 @@ public class SubChapterLawActivity extends AppCompatActivity {
     private void initData() {
         mIntent = getIntent();
         parentChapter = mIntent.getIntExtra(CommonVls.SUB_CHAPTER_LAW,1);
-        tbSubLaw.setTitle(getResources().getString(R.string.chapter) + " " + parentChapter);
+        getSupportActionBar().setTitle(getResources().getString(R.string.chapter) + " " + parentChapter);
 
         listSubChapter = new ArrayList<JSonItemSubChapterLaw>();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -86,6 +85,7 @@ public class SubChapterLawActivity extends AppCompatActivity {
         setSupportActionBar(tbSubLaw);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle(getResources().getString(R.string.chapter) + " " + parentChapter);
     }
 
     @Override

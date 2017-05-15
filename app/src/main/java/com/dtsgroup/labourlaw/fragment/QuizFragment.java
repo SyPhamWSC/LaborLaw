@@ -120,6 +120,23 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                 pagerAdapter = new ShowQuizAdapter(getChildFragmentManager(), listQuiz);
                 viewPager.setAdapter(pagerAdapter);
                 viewPager.setCurrentItem(0);
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        posItem = position;
+                        tvPosItem.setText((posItem + 1) + "/10");
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
                 frag1 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 0);
             }
 
@@ -216,24 +233,24 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        if(!EventBus.getDefault().isRegistered(this)){
-            EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(QuizFragment.this)) {
+            EventBus.getDefault().register(QuizFragment.this);
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(QuizFragment.this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EventMessage ev) {
+        Log.e(TAG, "from quiz fragment");
         if(ev.getAction().equals(CommonVls.ACTION_UPDATE_LANGUAGE)){
-            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-            pagerAdapter.notifyDataSetChanged();
-            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-
+            pagerAdapter = new ShowQuizAdapter(getChildFragmentManager(), listQuiz);
+            viewPager.setAdapter(pagerAdapter);
+            viewPager.setCurrentItem(posItem);
         }
 
     }

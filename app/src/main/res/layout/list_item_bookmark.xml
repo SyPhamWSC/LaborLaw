@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/li_enter_guide_height"
+    android:layout_marginBottom="@dimen/item_padding_top"
+    android:layout_marginLeft="@dimen/item_padding_top"
+    android:layout_marginRight="@dimen/item_padding_top"
+    card_view:cardElevation="@dimen/card_elevation"
+    android:maxHeight="@dimen/li_enter_guide_height">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <FrameLayout
+            android:id="@+id/fl_chapter_bookmark"
+            android:background="@color/colorAccent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/tv_chapter_bookmark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_text_size"
+                android:gravity="center"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/item_padding_top"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="8">
+
+            <TextView
+                android:id="@+id/tv_name_chapter_bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_5_dp"
+                android:ellipsize="end"
+                android:textColor="#2c3e50"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -2,6 +2,7 @@ package com.dtsgroup.labourlaw.service;
 
 
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
+import com.dtsgroup.labourlaw.model.JSonItemBookmark;
 import com.dtsgroup.labourlaw.model.JSonItemQA;
 import com.dtsgroup.labourlaw.model.JSonItemQuiz;
 import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
@@ -9,7 +10,10 @@ import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface APIService {
@@ -24,12 +28,12 @@ public interface APIService {
     @GET("{num_chapter}")
     Call<List<JSonItemSubChapterLaw>> getAllSubChapterLaw(@Path("num_chapter") int num_chapter);
 
-    @GET("1")
-    Call<List<JSonItemSubChapterLaw>> getAllSubChapter1Law();
+    @FormUrlEncoded
+    @POST("bookmark")
+    Call<JSonItemBookmark> bookmark(@Field("name_vi") String nameVi, @Field("name_en") String nameEn,
+                                    @Field("title_vi") String titleVi, @Field("title_en") String titleEn,
+                                    @Field("description_vi") String descVi, @Field("description_en") String descEn, @Field("chapter") String chapter);
 
-    @GET("2")
-    Call<List<JSonItemSubChapterLaw>> getAllSubChapter2Law();
-
-    @GET("3")
-    Call<List<JSonItemSubChapterLaw>> getAllSubChapter3Law();
+    @GET("bookmarks")
+    Call<List<JSonItemBookmark>> getBookmarks();
 }

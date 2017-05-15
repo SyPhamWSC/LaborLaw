@@ -98,6 +98,8 @@ public class ShowQuizFragment extends Fragment implements View.OnClickListener {
         rbAnswerC.setOnClickListener(this);
         rbAnswerD.setOnClickListener(this);
 
+        rbAnswerA.setChecked(true);
+
         return view;
     }
 
