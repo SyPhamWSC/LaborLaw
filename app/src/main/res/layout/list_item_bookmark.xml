@@ -37,7 +37,7 @@
             android:layout_marginLeft="@dimen/item_padding_top"
             android:orientation="vertical"
             android:gravity="center_vertical"
-            android:layout_weight="8">
+            android:layout_weight="7">
 
             <TextView
                 android:id="@+id/tv_name_chapter_bookmark"
@@ -48,6 +48,17 @@
                 android:textColor="#2c3e50"
                 android:textSize="@dimen/title_text_size"
                 android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_delete"
+                android:id="@+id/iv_delte_item_bookmark"/>
         </LinearLayout>
     </LinearLayout>
 

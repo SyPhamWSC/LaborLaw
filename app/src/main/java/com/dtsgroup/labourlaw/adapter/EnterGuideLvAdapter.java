@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dtsgroup.labourlaw.R;
+import com.dtsgroup.labourlaw.activity.IntroduceActivity;
 import com.dtsgroup.labourlaw.activity.SubChapterLawActivity;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
@@ -76,6 +77,12 @@ public class EnterGuideLvAdapter extends RecyclerView.Adapter<EnterGuideLvAdapte
                         Intent mIntent = new Intent(itemView.getContext(),SubChapterLawActivity.class);
                         int chapter = item.getId() - 1;
                         mIntent.putExtra(CommonVls.SUB_CHAPTER_LAW,chapter);
+                        context.startActivity(mIntent);
+                    }
+                    if(item.getTypeChapter().equals("introduce")){
+                        Intent mIntent = new Intent(itemView.getContext(), IntroduceActivity.class);
+                        mIntent.putExtra(CommonVls.INTRODUCE_VI,item.getDescriptionVi());
+                        mIntent.putExtra(CommonVls.INTRODUCE_EN,item.getDescriptionEn());
                         context.startActivity(mIntent);
                     }
                 }

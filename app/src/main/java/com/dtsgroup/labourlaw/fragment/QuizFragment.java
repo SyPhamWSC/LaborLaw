@@ -61,15 +61,17 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quiz, container, false);
-
-        getAllQuestionQuiz();
-
         ivNext = (ImageView) view.findViewById(R.id.iv_next);
         ivBack = (ImageView) view.findViewById(R.id.iv_back);
         tvPosItem = (TextView) view.findViewById(R.id.tv_pos_fragment_quiz);
 
         ivBack.setOnClickListener(this);
         ivNext.setOnClickListener(this);
+        ivBack.setClickable(false);
+        ivNext.setClickable(false);
+        getAllQuestionQuiz();
+
+
 
         return view;
     }
@@ -141,6 +143,8 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                     }
                 });
                 frag1 = (ShowQuizFragment) getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.vp_show_quiz +":" + 0);
+                ivBack.setClickable(true);
+                ivNext.setClickable(true);
             }
 
             @Override

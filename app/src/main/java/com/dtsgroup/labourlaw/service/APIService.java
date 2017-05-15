@@ -10,6 +10,7 @@ import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -43,4 +44,8 @@ public interface APIService {
 
     @GET("bookmarks")
     Call<List<JSonItemBookmark>> getBookmarks();
+
+    @FormUrlEncoded
+    @DELETE("bookmarks")
+    Call<JSonItemBookmark> deleteitem(@Field("id") int id);
 }
