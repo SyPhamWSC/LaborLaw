@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.dtsgroup.labourlaw.activity.ActivityDetailLaw;
 import com.dtsgroup.labourlaw.activity.SearchActivity;
 import com.dtsgroup.labourlaw.adapter.DrawerLvAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
@@ -195,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 callFragment(updatesFragment);
                 break;
             case CommonVls.SETTINGS_POS:
-                callFragment(settingsFragment);
+
                 break;
         }
         drawerLayout.closeDrawer(Gravity.START);

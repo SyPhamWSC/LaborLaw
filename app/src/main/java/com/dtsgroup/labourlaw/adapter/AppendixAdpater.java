@@ -17,9 +17,6 @@ import com.dtsgroup.labourlaw.model.Appendix;
 
 import java.util.List;
 
-/**
- * Created by vantr on 5/15/2017.
- */
 
 public class AppendixAdpater extends RecyclerView.Adapter<AppendixAdpater.MyViewHolder> {
     private Context mContext;

@@ -8,22 +8,18 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.adapter.BookmarkAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.interaction.IClickListener;
 import com.dtsgroup.labourlaw.model.EventMessage;
-import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.model.JSonItemBookmark;
 import com.dtsgroup.labourlaw.parser.JBookmark;
-import com.dtsgroup.labourlaw.service.APIService;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -39,11 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookmarkFragment extends Fragment implements IClickListener {
 

@@ -24,9 +24,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by vantr on 5/15/2017.
- */
 
 public class ActivityDetailAppendix extends AppCompatActivity {
     @BindView(R.id.tb_main)

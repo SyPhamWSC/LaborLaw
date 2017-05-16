@@ -9,10 +9,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by vantr on 5/15/2017.
- */
-
 public class JBookmark {
 
     public static List<JSonItemBookmark> getBookmark(JSONArray jsonArray) throws JSONException {
