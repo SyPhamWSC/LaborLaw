@@ -125,7 +125,6 @@
                     android:textColor="@color/gray_text" />
 
                 <include layout="@layout/horizontal_line" />
-
                 <TextView
                     android:id="@+id/tv_about"
                     style="@android:style/TextAppearance.Medium"
@@ -134,7 +133,6 @@
                     android:layout_margin="15.0dip"
                     android:text="@string/about_better_work"
                     android:textColor="@color/gray_text" />
-
                 <include layout="@layout/horizontal_line" />
             </LinearLayout>
         </ScrollView>

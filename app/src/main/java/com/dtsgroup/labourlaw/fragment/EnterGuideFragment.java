@@ -123,7 +123,7 @@ public class EnterGuideFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<JSonChapterLaw>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Get data fail", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Get data fail", Toast.LENGTH_LONG).show();
             }
         });
     }

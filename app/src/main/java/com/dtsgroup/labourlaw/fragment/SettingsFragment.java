@@ -5,7 +5,10 @@
 
 package com.dtsgroup.labourlaw.fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.SettingInjectorService;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,13 +19,21 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.dtsgroup.labourlaw.R;
+import com.dtsgroup.labourlaw.common.CommonVls;
+import com.dtsgroup.labourlaw.helper.LanguageHelper;
+import com.dtsgroup.labourlaw.model.EventMessage;
+import com.dtsgroup.labourlaw.util.SettingsManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class SettingsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends Fragment {
 
     @BindView(R.id.tv_push_notification)
     TextView tvPushNotification;
@@ -51,12 +62,67 @@ public class SettingsFragment extends Fragment implements SharedPreferences.OnSh
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setUpUI();
         return view;
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    private void setUpUI() {
+        String lang = LanguageHelper.getLanguage(getActivity());
+        if (lang.equals(CommonVls.ENGLISH)) {
+            cbEnglish.setChecked(true);
+            cbVietnamese.setChecked(false);
+        } else {
+            cbEnglish.setChecked(false);
+            cbVietnamese.setChecked(true);
+        }
 
+        if (SettingsManager.getNotificationStatus(getActivity())) {
+            cbPushNotification.setChecked(true);
+        } else {
+            cbPushNotification.setChecked(false);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!EventBus.getDefault().isRegistered(SettingsFragment.this)) {
+            EventBus.getDefault().register(SettingsFragment.this);
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(SettingsFragment.this)) {
+            EventBus.getDefault().unregister(SettingsFragment.this);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(EventMessage ev) {
+        if (ev.getAction().equals(CommonVls.ACTION_UPDATE_LANGUAGE)) {
+            refeshLanguage();
+        }
+    }
+
+    private void refeshLanguage() {
+        tvPushNotification.setText(getString(R.string.push_notification));
+        tvLanguage.setText(getString(R.string.language));
+        tvEnglish.setText(getString(R.string.english));
+        tvVietnamese.setText(getString(R.string.vietnamese));
+        tvShare.setText(getString(R.string.share_this_app));
+        tvFeedback.setText(getString(R.string.give_us_your_feedback));
+        tvAbout.setText(getString(R.string.about_better_work));
+        String lang = LanguageHelper.getLanguage(getActivity());
+        if (lang.equals(CommonVls.ENGLISH)) {
+            cbEnglish.setChecked(true);
+            cbVietnamese.setChecked(false);
+        } else {
+            cbEnglish.setChecked(false);
+            cbVietnamese.setChecked(true);
+        }
     }
 
     @Override
@@ -67,25 +133,47 @@ public class SettingsFragment extends Fragment implements SharedPreferences.OnSh
 
     @OnClick(R.id.cb_push_notification)
     public void onCbPushNotificationClicked() {
+        if (cbPushNotification.isChecked()) {
+            SettingsManager.setNotificationStatus(getActivity(), true);
+        } else {
+            SettingsManager.setNotificationStatus(getActivity(), false);
+        }
     }
 
     @OnClick(R.id.cb_english)
     public void onCbEnglishClicked() {
+        cbEnglish.setChecked(true);
+        cbVietnamese.setChecked(false);
+        LanguageHelper.setLocale(getActivity(),CommonVls.ENGLISH);
+        EventBus.getDefault().post(new EventMessage(CommonVls.ACTION_UPDATE_LANGUAGE));
     }
 
     @OnClick(R.id.cb_vietnamese)
     public void onCbVietnameseClicked() {
+        cbEnglish.setChecked(false);
+        cbVietnamese.setChecked(true);
+        LanguageHelper.setLocale(getActivity(),CommonVls.VIETNAMESE);
+        EventBus.getDefault().post(new EventMessage(CommonVls.ACTION_UPDATE_LANGUAGE));
     }
 
     @OnClick(R.id.tv_share)
     public void onTvShareClicked() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,"http://portal.ehubly.com/Hub/HHTV");
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_feedback)
     public void onTvFeedbackClicked() {
+        Intent intent = new Intent("android.intent.action.SENDTO", Uri.fromParts("mailto", "cskh@ehs.com.vn",""));
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_about)
     public void onTvAboutClicked() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("https://ehs.vn/ehs/"));
+        startActivity(intent);
     }
 }
