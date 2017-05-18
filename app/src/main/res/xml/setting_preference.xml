@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-android:key="first_preferencescreen">
-<CheckBoxPreference
-    android:key="push_notify"
-    android:defaultValue="true"
-    android:title="@string/receive_notify" />
+    android:key="first_preferencescreen">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="push_notify"
+        android:title="@string/receive_notify" />
+    <PreferenceCategory
+        android:title="Language"
+        >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="push_notify"
+            android:title="@string/receive_notify" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="push_notify"
+            android:title="@string/receive_notify" />
+    </PreferenceCategory>
+    <MultiSelectListPreference
+
+        android:title="Choose">
+    </MultiSelectListPreference>
 
 </PreferenceScreen>

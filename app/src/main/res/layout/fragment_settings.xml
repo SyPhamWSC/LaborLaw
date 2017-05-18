@@ -1,6 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="15.0dip">
+
+                    <TextView
+                        android:id="@+id/tv_push_notification"
+                        style="@android:style/TextAppearance.Medium"
+                        android:layout_width="0.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:text="@string/push_notification"
+                        android:textColor="@color/gray_text" />
+
+                    <CheckBox
+                        android:id="@+id/cb_push_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <include layout="@layout/horizontal_line" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15.0dip">
+
+                    <TextView
+                        android:id="@+id/tv_language"
+                        style="@android:style/TextAppearance.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language"
+                        android:textColor="@color/gray_text" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15.0dip"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_english"
+                            style="@android:style/TextAppearance.Medium"
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:text="@string/english"
+                            android:textColor="@color/gray_text" />
+
+                        <CheckBox
+                            android:id="@+id/cb_english"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <include layout="@layout/horizontal_line" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15.0dip"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_vietnamese"
+                            style="@android:style/TextAppearance.Medium"
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:text="@string/vietnamese"
+                            android:textColor="@color/gray_text" />
+
+                        <CheckBox
+                            android:id="@+id/cb_vietnamese"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <include layout="@layout/horizontal_line" />
+
+                <TextView
+                    android:id="@+id/tv_share"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15.0dip"
+                    android:text="@string/share_this_app"
+                    android:textColor="@color/gray_text" />
+
+                <include layout="@layout/horizontal_line" />
+
+                <TextView
+                    android:id="@+id/tv_feedback"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15.0dip"
+                    android:text="@string/give_us_your_feedback"
+                    android:textColor="@color/gray_text" />
+
+                <include layout="@layout/horizontal_line" />
+
+                <TextView
+                    android:id="@+id/tv_about"
+                    style="@android:style/TextAppearance.Medium"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15.0dip"
+                    android:text="@string/about_better_work"
+                    android:textColor="@color/gray_text" />
+
+                <include layout="@layout/horizontal_line" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

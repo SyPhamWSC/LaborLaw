@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 tbMain.setTitle(getResources().getString(R.string.check_update));
                 break;
             case CommonVls.SETTINGS_POS:
-                tbMain.setTitle(getResources().getString(R.string.settings));
+                tbMain.setTitle(getString(R.string.settings));
                 break;
         }
     }
@@ -196,8 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 callFragment(updatesFragment);
                 break;
             case CommonVls.SETTINGS_POS:
-                Intent intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);
+                callFragment(settingsFragment);
                 break;
         }
         drawerLayout.closeDrawer(Gravity.START);
@@ -285,6 +284,8 @@ public class MainActivity extends AppCompatActivity {
                 listItemDrawer.add(list.get(i));
             }
            drawerLvAdapter.notifyDataSetChanged();
+        }else if(ev.getAction().equals(CommonVls.OPEN_DRAWER_LAYOUT)){
+            drawerLayout.openDrawer(Gravity.START);
         }
     }
 }
