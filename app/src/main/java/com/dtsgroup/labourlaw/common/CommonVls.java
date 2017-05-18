@@ -44,4 +44,5 @@ public class CommonVls {
     public static final String BUNDLE_DETAIL_BOOKMARK = "BUNDLE_DETAIL_BOOKMARK";
     public static final String KEY_DETAIL_BOOKMARK = "KEY_DETAIL_BOOKMARK";
     public static final String OPEN_DRAWER_LAYOUT = "OPEN_DRAWER_LAYOUT";
+    public static final String UPDATE_SCORE = "UPDATE_SCORE";
 }

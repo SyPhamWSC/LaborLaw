@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
+import com.dtsgroup.labourlaw.helper.SharePrefUtils;
 import com.dtsgroup.labourlaw.model.JSonItemQuiz;
 
 import java.io.Serializable;
@@ -98,13 +99,17 @@ public class ShowQuizFragment extends Fragment implements View.OnClickListener {
         rbAnswerC.setOnClickListener(this);
         rbAnswerD.setOnClickListener(this);
 
-        rbAnswerA.setChecked(true);
-
         return view;
     }
 
     public int getPageNumber() {
         return pageNumber;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        rbAnswerA.setChecked(true);
     }
 
     @Override
@@ -123,10 +128,14 @@ public class ShowQuizFragment extends Fragment implements View.OnClickListener {
                 yourAnswer = ANSWER_D;
                 break;
         }
+        resultAnswerQuiz();
     }
-    public int resultAnswerQuiz(){
+
+    public void resultAnswerQuiz(){
         if(yourAnswer.equals(trueAnswer)){
-            return 1;
-        } else return 0;
+            int score = SharePrefUtils.getScore(getActivity());
+            score++;
+            SharePrefUtils.updateScore(getActivity(),score);
+        }
     }
 }
