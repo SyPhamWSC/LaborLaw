@@ -1,25 +1,16 @@
 package com.dtsgroup.labourlaw.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.dtsgroup.labourlaw.R;
 
-public class SettingsFragment extends Fragment {
 
-    private View view;
+public class SettingsFragment extends PreferenceFragmentCompat {
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_settings,container,false);
-        return view;
+    public void onCreatePreferences(Bundle bundle, String s) {
+        addPreferencesFromResource(R.xml.setting_preference);
+
     }
-
-
-
 }

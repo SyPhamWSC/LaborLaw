@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by vantr on 5/15/2017.
- */
 
 public class Appendix implements Serializable{
 

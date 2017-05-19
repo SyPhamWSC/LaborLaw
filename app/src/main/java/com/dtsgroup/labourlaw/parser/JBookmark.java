@@ -13,7 +13,7 @@ public class JBookmark {
 
     public static List<JSonItemBookmark> getBookmark(JSONArray jsonArray) throws JSONException {
         List<JSonItemBookmark> list = new ArrayList<>();
-        for (int i = 0; i< jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             Integer id = jsonObject.getInt("id");
             String chapter = jsonObject.getString("chapter");
@@ -24,7 +24,7 @@ public class JBookmark {
             String title_vi = jsonObject.getString("title_vi");
             String title_en = jsonObject.getString("title_en");
 
-            JSonItemBookmark bookmark = new JSonItemBookmark(id,chapter,name_vi,name_en,description_vi,description_en,title_en,title_vi);
+            JSonItemBookmark bookmark = new JSonItemBookmark(id, chapter, name_vi, name_en, description_vi, description_en, title_en, title_vi);
             list.add(bookmark);
         }
 
