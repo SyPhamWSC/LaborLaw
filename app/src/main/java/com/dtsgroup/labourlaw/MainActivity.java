@@ -20,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.dtsgroup.labourlaw.activity.SearchActivity;
-import com.dtsgroup.labourlaw.activity.SettingActivity;
 import com.dtsgroup.labourlaw.adapter.DrawerLvAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.fragment.AskedFragment;
@@ -43,6 +42,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -70,12 +70,17 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager manager;
     FragmentTransaction transaction;
 
+    private Realm realm = Realm.getDefaultInstance();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
+
+        this.realm = Realm.getDefaultInstance();
 
 
         inits();
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 tbMain.setTitle(getResources().getString(R.string.check_update));
                 break;
             case CommonVls.SETTINGS_POS:
-                tbMain.setTitle(getResources().getString(R.string.settings));
+                tbMain.setTitle(getString(R.string.settings));
                 break;
         }
     }
@@ -195,8 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 callFragment(updatesFragment);
                 break;
             case CommonVls.SETTINGS_POS:
-                Intent intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);
+                callFragment(settingsFragment);
                 break;
         }
         drawerLayout.closeDrawer(Gravity.START);
@@ -284,6 +288,8 @@ public class MainActivity extends AppCompatActivity {
                 listItemDrawer.add(list.get(i));
             }
            drawerLvAdapter.notifyDataSetChanged();
+        }else if(ev.getAction().equals(CommonVls.OPEN_DRAWER_LAYOUT)){
+            drawerLayout.openDrawer(Gravity.START);
         }
     }
 }

@@ -15,7 +15,6 @@ import com.dtsgroup.labourlaw.adapter.AppendixAdpater;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.model.Appendix;
 import com.dtsgroup.labourlaw.model.EventMessage;
-import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import com.dtsgroup.labourlaw.service.APIService;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,10 +32,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by vantr on 5/15/2017.
- */
-
 public class ActivityAppendix extends AppCompatActivity {
 
     @BindView(R.id.tb_main)
@@ -52,6 +47,7 @@ public class ActivityAppendix extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appendix);
+        overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
         ButterKnife.bind(this);
 
         initView();

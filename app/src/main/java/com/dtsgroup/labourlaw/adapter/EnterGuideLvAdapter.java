@@ -15,18 +15,16 @@ import com.dtsgroup.labourlaw.activity.IntroduceActivity;
 import com.dtsgroup.labourlaw.activity.SubChapterLawActivity;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
-import com.dtsgroup.labourlaw.model.ItemEnterGuide;
-import com.dtsgroup.labourlaw.model.JSonChapterLaw;
-import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
+import com.dtsgroup.labourlaw.model.ChapterLaw;
 
-import java.util.List;
+import io.realm.RealmResults;
 
 public class EnterGuideLvAdapter extends RecyclerView.Adapter<EnterGuideLvAdapter.ViewHolder> {
-    private List<JSonChapterLaw> list;
+    private RealmResults<ChapterLaw> list;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public EnterGuideLvAdapter(Context context, List<JSonChapterLaw> list) {
+    public EnterGuideLvAdapter(Context context,RealmResults<ChapterLaw> list) {
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
@@ -41,15 +39,15 @@ public class EnterGuideLvAdapter extends RecyclerView.Adapter<EnterGuideLvAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        JSonChapterLaw item = list.get(position);
+        ChapterLaw item = list.get(position);
 
         String lang = LanguageHelper.getLanguage(context);
         if (lang.equals(CommonVls.ENGLISH)) {
-            holder.tvTitle.setText(item.getSnameChapterEn());
-            holder.tvShorDescreption.setText(item.getDescriptionEn());
+            holder.tvTitle.setText(item.getSname_chapter_en());
+            holder.tvShorDescreption.setText(item.getDescription_en());
         } else if (lang.equals(CommonVls.VIETNAMESE)) {
-            holder.tvTitle.setText(item.getSnameChapterVi());
-            holder.tvShorDescreption.setText(item.getDescriptionVi());
+            holder.tvTitle.setText(item.getSname_chapter_vi());
+            holder.tvShorDescreption.setText(item.getDescription_vi());
         }
         holder.tvCode.setText(String.valueOf(item.getId() - 1));
 
@@ -73,20 +71,20 @@ public class EnterGuideLvAdapter extends RecyclerView.Adapter<EnterGuideLvAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    JSonChapterLaw item = list.get(getAdapterPosition());
-                    if(item.getTypeChapter().equals("content")){
+                    ChapterLaw item = list.get(getAdapterPosition());
+                    if(item.getType_chapter().equals("content")){
                         Intent mIntent = new Intent(itemView.getContext(),SubChapterLawActivity.class);
                         int chapter = item.getId() - 1;
                         mIntent.putExtra(CommonVls.SUB_CHAPTER_LAW,chapter);
                         context.startActivity(mIntent);
-                    }else if(item.getTypeChapter().equals("addendum")){
+                    }else if(item.getType_chapter().equals("addendum")){
                         Intent intent = new Intent(context, ActivityAppendix.class);
                         context.startActivity(intent);
                     }
-                    else if(item.getTypeChapter().equals("introduce")){
+                    else if(item.getType_chapter().equals("introduce")){
                         Intent mIntent = new Intent(itemView.getContext(), IntroduceActivity.class);
-                        mIntent.putExtra(CommonVls.INTRODUCE_VI,item.getDescriptionVi());
-                        mIntent.putExtra(CommonVls.INTRODUCE_EN,item.getDescriptionEn());
+                        mIntent.putExtra(CommonVls.INTRODUCE_VI,item.getDescription_vi());
+                        mIntent.putExtra(CommonVls.INTRODUCE_EN,item.getDescription_en());
                         context.startActivity(mIntent);
                     }
                 }

@@ -26,4 +26,13 @@
     <string name="delete_item">Xóa bookmark?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <!-- ******************** Setting *************************** -->
+    <string name="push_notification">Nhận thông báo mới</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="english">Tiếng Anh</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="share_this_app">Chia sẻ ứng dụng</string>
+    <string name="give_us_your_feedback">Phản hồi của bạn</string>
+    <string name="about_better_work">Giới thiệu về EHS</string>
 </resources>

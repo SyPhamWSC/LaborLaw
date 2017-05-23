@@ -28,4 +28,13 @@
     <string name="delete_item">Delete bookmark?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <!-- ******************** Setting *************************** -->
+    <string name="push_notification">Push notification</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Vietnamese</string>
+    <string name="share_this_app">Share this app</string>
+    <string name="give_us_your_feedback">Give us your feedback</string>
+    <string name="about_better_work">About EHS</string>
 </resources>

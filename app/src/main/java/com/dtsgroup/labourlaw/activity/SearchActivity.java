@@ -3,11 +3,9 @@ package com.dtsgroup.labourlaw.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -23,7 +21,6 @@ import android.widget.Toast;
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.adapter.SubLawAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
-import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import com.dtsgroup.labourlaw.service.APIService;
 
@@ -49,8 +46,6 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher {
     ImageView imgCloseSearch;
     @BindView(R.id.rv_enter_guide)
     RecyclerView rycResultSearch;
-    @BindView(R.id.sr_layout)
-    SwipeRefreshLayout srLayout;
     private SubLawAdapter searchAdapter;
     private List<JSonItemSubChapterLaw> listChapter;
 
@@ -77,7 +72,6 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher {
     }
 
     private void performSearch() {
-        srLayout.setRefreshing(true);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CommonVls.GET_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -93,7 +87,6 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher {
                     listChapter.add(list.get(i));
                 }
                 searchAdapter.notifyDataSetChanged();
-                srLayout.setRefreshing(false);
             }
 
             @Override

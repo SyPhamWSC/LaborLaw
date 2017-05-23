@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.SplashScreen"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:launchMode="singleTop">
@@ -35,10 +35,10 @@
             android:theme="@style/ThemSetting"
             android:name=".activity.SettingActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name=".MainActivity"/>
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity"
-        />
+            android:value=".MainActivity" />
     </application>
 
 </manifest>

@@ -10,5 +10,26 @@ android:key="first_preferencescreen">
         android:key="second_preferencescreen"
         android:title="@string/change_language">
     </PreferenceScreen>
+    android:key="first_preferencescreen">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="push_notify"
+        android:title="@string/receive_notify" />
+    <PreferenceCategory
+        android:title="Language"
+        >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="push_notify"
+            android:title="@string/receive_notify" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="push_notify"
+            android:title="@string/receive_notify" />
+    </PreferenceCategory>
+    <MultiSelectListPreference
+
+        android:title="Choose">
+    </MultiSelectListPreference>
 
 </PreferenceScreen>

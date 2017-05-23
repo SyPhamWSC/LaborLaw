@@ -12,17 +12,16 @@ import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.QADetailsActivity;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
-import com.dtsgroup.labourlaw.model.JSonItemQA;
+import com.dtsgroup.labourlaw.model.ItemQA;
 
-import java.io.Serializable;
-import java.util.List;
+import io.realm.RealmResults;
 
 public class QAAdapter extends RecyclerView.Adapter<QAAdapter.ViewHolder> {
-    private List<JSonItemQA> itemQAList;
+    private RealmResults<ItemQA> itemQAList;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public QAAdapter(Context context, List<JSonItemQA> list) {
+    public QAAdapter(Context context, RealmResults<ItemQA> list) {
         this.context = context;
         this.itemQAList = list;
         this.layoutInflater = LayoutInflater.from(context);
@@ -36,7 +35,7 @@ public class QAAdapter extends RecyclerView.Adapter<QAAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final JSonItemQA itemQA = itemQAList.get(position);
+        final ItemQA itemQA = itemQAList.get(position);
 
         String lang = LanguageHelper.getLanguage(context);
         if (lang.equals(CommonVls.ENGLISH)) {
@@ -49,7 +48,7 @@ public class QAAdapter extends RecyclerView.Adapter<QAAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(context, QADetailsActivity.class);
-                mIntent.putExtra(CommonVls.ITEM_QA, itemQA);
+                mIntent.putExtra(CommonVls.ITEM_QA, itemQA.getId());
                 context.startActivity(mIntent);
             }
         });

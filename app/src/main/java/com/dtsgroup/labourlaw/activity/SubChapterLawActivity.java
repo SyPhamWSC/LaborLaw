@@ -52,7 +52,7 @@ public class SubChapterLawActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_law);
-
+        overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
         initsViews();
 
         initData();

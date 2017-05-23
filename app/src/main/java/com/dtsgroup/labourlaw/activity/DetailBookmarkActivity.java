@@ -15,7 +15,6 @@ import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
 import com.dtsgroup.labourlaw.model.EventMessage;
 import com.dtsgroup.labourlaw.model.JSonItemBookmark;
-import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,6 +38,7 @@ public class DetailBookmarkActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_bookmark);
+        overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
 
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);

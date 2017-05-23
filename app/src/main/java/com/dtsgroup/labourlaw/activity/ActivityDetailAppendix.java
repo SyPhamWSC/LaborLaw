@@ -38,6 +38,7 @@ public class ActivityDetailAppendix extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_appendix);
+        overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
         ButterKnife.bind(this);
         setSupportActionBar(tbMain);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

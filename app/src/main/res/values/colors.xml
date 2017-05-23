@@ -6,4 +6,6 @@
     <color name="un_selected">#494B4D</color>
     <color name="selected">#CC1B3B</color>
     <color name="white">#ffff</color>
+    <color name="gray">#ffbfbfbf</color>
+    <color name="gray_text">#ff717171</color>
 </resources>

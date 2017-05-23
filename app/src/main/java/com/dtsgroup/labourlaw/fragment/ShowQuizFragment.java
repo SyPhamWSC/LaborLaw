@@ -5,21 +5,20 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
-import com.dtsgroup.labourlaw.model.JSonItemQuiz;
+import com.dtsgroup.labourlaw.helper.SharePrefUtils;
+import com.dtsgroup.labourlaw.model.ItemQuiz;
 
-import java.io.Serializable;
+import io.realm.Realm;
 
 public class ShowQuizFragment extends Fragment implements View.OnClickListener {
 
@@ -40,15 +39,16 @@ public class ShowQuizFragment extends Fragment implements View.OnClickListener {
     private RadioButton rbAnswerD;
     private TextView tvTitleQuestion;
     private Context context;
-    private JSonItemQuiz itemQuiz;
+    private ItemQuiz itemQuiz;
     private String yourAnswer = "";
     private String trueAnswer;
+    private Realm realm = Realm.getDefaultInstance();
 
-    public static ShowQuizFragment create(int pageNumber, JSonItemQuiz itemQuiz){
+    public static ShowQuizFragment create(int pageNumber, ItemQuiz itemQuiz){
         ShowQuizFragment fm = new ShowQuizFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
-        args.putSerializable("quiz", itemQuiz);
+        args.putInt("quiz", itemQuiz.getId());
         fm.setArguments(args);
         return fm;
     }
@@ -61,7 +61,8 @@ public class ShowQuizFragment extends Fragment implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageNumber = getArguments().getInt(ARG_PAGE);
-        itemQuiz = (JSonItemQuiz) getArguments().getSerializable("quiz");
+        int id = getArguments().getInt("quiz");
+        itemQuiz = realm.where(ItemQuiz.class).equalTo("id",id).findFirst();
     }
 
     @Nullable
@@ -98,13 +99,17 @@ public class ShowQuizFragment extends Fragment implements View.OnClickListener {
         rbAnswerC.setOnClickListener(this);
         rbAnswerD.setOnClickListener(this);
 
-        rbAnswerA.setChecked(true);
-
         return view;
     }
 
     public int getPageNumber() {
         return pageNumber;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        rbAnswerA.setChecked(true);
     }
 
     @Override
@@ -123,10 +128,14 @@ public class ShowQuizFragment extends Fragment implements View.OnClickListener {
                 yourAnswer = ANSWER_D;
                 break;
         }
+        resultAnswerQuiz();
     }
-    public int resultAnswerQuiz(){
+
+    public void resultAnswerQuiz(){
         if(yourAnswer.equals(trueAnswer)){
-            return 1;
-        } else return 0;
+            int score = SharePrefUtils.getScore(getActivity());
+            score++;
+            SharePrefUtils.updateScore(getActivity(),score);
+        }
     }
 }
