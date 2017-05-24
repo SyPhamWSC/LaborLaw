@@ -29,6 +29,8 @@ public class ResultQuizActivity extends AppCompatActivity{
     TextView tvResult;
     @BindView(R.id.tv_try_quiz_again)
     TextView tvTryAgain;
+    @BindView(R.id.tv_review_quiz)
+    TextView tvReviewQuiz;
 
     private Intent mIntent;
 
@@ -47,6 +49,15 @@ public class ResultQuizActivity extends AppCompatActivity{
             public void onClick(View v) {
                 EventBus.getDefault().post(new EventMessage(CommonVls.RELOAD_QUIZ));
                 finish();
+            }
+        });
+        tvReviewQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = mIntent.getExtras();
+                Intent intent = new Intent(ResultQuizActivity.this,ReviewQuizActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

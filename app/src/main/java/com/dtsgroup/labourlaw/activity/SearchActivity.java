@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dtsgroup.labourlaw.R;
-import com.dtsgroup.labourlaw.adapter.SubLawAdapter;
+import com.dtsgroup.labourlaw.adapter.SearchAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 import com.dtsgroup.labourlaw.service.APIService;
@@ -46,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher {
     ImageView imgCloseSearch;
     @BindView(R.id.rv_enter_guide)
     RecyclerView rycResultSearch;
-    private SubLawAdapter searchAdapter;
+    private SearchAdapter searchAdapter;
     private List<JSonItemSubChapterLaw> listChapter;
 
     @Override
@@ -102,7 +102,7 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher {
         rycResultSearch.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rycResultSearch.setLayoutManager(layoutManager);
-        searchAdapter = new SubLawAdapter(this,listChapter);
+        searchAdapter = new SearchAdapter(this,listChapter);
         rycResultSearch.setAdapter(searchAdapter);
     }
 

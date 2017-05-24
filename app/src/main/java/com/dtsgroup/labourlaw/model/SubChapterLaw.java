@@ -5,9 +5,9 @@ import io.realm.annotations.PrimaryKey;
 
 public class SubChapterLaw extends RealmObject{
     @PrimaryKey
-    private int id;
-
     private String subChapter;
+
+    private int id;
     private String chapterNameVi;
     private String chapterNameEn;
     private String chapterTitleVi;

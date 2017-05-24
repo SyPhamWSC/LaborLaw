@@ -4,11 +4,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,34 +14,24 @@ import android.view.ViewGroup;
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.adapter.BookmarkAdapter;
 import com.dtsgroup.labourlaw.common.CommonVls;
-import com.dtsgroup.labourlaw.interaction.IClickListener;
 import com.dtsgroup.labourlaw.model.EventMessage;
-import com.dtsgroup.labourlaw.model.JSonItemBookmark;
-import com.dtsgroup.labourlaw.parser.JBookmark;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import com.dtsgroup.labourlaw.model.ItemBookmark;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
-import cz.msebera.android.httpclient.Header;
-
-public class BookmarkFragment extends Fragment implements IClickListener {
+public class BookmarkFragment extends Fragment {
 
     private static final String TAG = "BookmarkFragment";
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvBookmark;
     private BookmarkAdapter bookmarkAdapter;
-    private List<JSonItemBookmark> listBookmark = new ArrayList<>();
+    private RealmResults<ItemBookmark> listBookmark;
     private View view;
+    private Realm realm = Realm.getDefaultInstance();
 
     @Nullable
     @Override
@@ -57,15 +45,14 @@ public class BookmarkFragment extends Fragment implements IClickListener {
 
     private void inits() {
         rvBookmark = (RecyclerView) view.findViewById(R.id.rv_bookmark);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.sr_bookmark);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getAllBookmark();
-            }
-        });
+        listBookmark = realm.where(ItemBookmark.class).findAll();
 
-        getAllBookmark();
+        bookmarkAdapter = new BookmarkAdapter(getActivity(),listBookmark);
+        rvBookmark.setAdapter(bookmarkAdapter);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rvBookmark.setLayoutManager(linearLayoutManager);
+
     }
 
 
@@ -92,53 +79,13 @@ public class BookmarkFragment extends Fragment implements IClickListener {
             bookmarkAdapter.notifyDataSetChanged();
         }
         if ((ev.getAction().equals(CommonVls.UPDATE_ADAPTER))){
-            getAllBookmark();
+            listBookmark.clear();
+            listBookmark =  realm.where(ItemBookmark.class).findAll();
+            bookmarkAdapter.notifyDataSetChanged();
         }
 
     }
 
-    public void getAllBookmark() {
-        swipeRefreshLayout.setRefreshing(true);
-        AsyncHttpClient httpClient = new AsyncHttpClient();
-        httpClient.get(CommonVls.GET_URL+"bookmarks/", new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    Log.e(TAG, "onSuccess: " + response.toString() );
-                    int code = response.getInt("code");
-                    if(code == 200){
-                        JSONArray jsonArray  = response.getJSONArray("data");
-                        listBookmark.clear();
-                        listBookmark = JBookmark.getBookmark(jsonArray);
-                        bookmarkAdapter = new BookmarkAdapter(getActivity(),listBookmark);
-                        bookmarkAdapter.setClickListener(BookmarkFragment.this);
-                        rvBookmark.setAdapter(bookmarkAdapter);
-
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-                        rvBookmark.setLayoutManager(linearLayoutManager);
-                        bookmarkAdapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);
-                    }else{
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                swipeRefreshLayout.setRefreshing(false);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                swipeRefreshLayout.setRefreshing(false);
-                Log.e(TAG, "onFailure: "+ responseString );
-            }
-        });
-    }
-
-    @Override
     public void onRemoveBookmark(final String chapter) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setMessage(getActivity().getResources().getString(R.string.delete_item));
@@ -162,44 +109,6 @@ public class BookmarkFragment extends Fragment implements IClickListener {
     }
 
     private void removeBookmark(String chapter){
-        swipeRefreshLayout.setRefreshing(true);
-        AsyncHttpClient httpClient = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("chapter",chapter);
-        httpClient.post(CommonVls.GET_URL+"remove_chapter/",params,new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                listBookmark.clear();
-                try {
-                    Log.e(TAG, "onSuccess: " + response.toString() );
-                    int code = response.getInt("code");
-                    if(code == 200){
-                        JSONArray jsonArray = response.getJSONArray("data");
 
-                        listBookmark = JBookmark.getBookmark(jsonArray);
-                        bookmarkAdapter = new BookmarkAdapter(getActivity(),listBookmark);
-                        bookmarkAdapter.setClickListener(BookmarkFragment.this);
-                        rvBookmark.setAdapter(bookmarkAdapter);
-
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-                        rvBookmark.setLayoutManager(linearLayoutManager);
-                        swipeRefreshLayout.setRefreshing(false);
-                    }else{
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                bookmarkAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                swipeRefreshLayout.setRefreshing(false);
-                Log.e(TAG, "onFailure: "+ responseString );
-            }
-        });
     }
 }

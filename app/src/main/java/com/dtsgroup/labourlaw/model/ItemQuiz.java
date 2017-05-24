@@ -7,7 +7,7 @@ import io.realm.annotations.PrimaryKey;
 public class ItemQuiz extends RealmObject{
 
     @PrimaryKey
-    private Integer id;
+    private int id;
     private String questionVi;
     private String questionEn;
     private String ansaVi;

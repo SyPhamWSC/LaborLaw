@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.ResultQuizActivity;
 import com.dtsgroup.labourlaw.adapter.ShowQuizAdapter;
@@ -20,18 +19,14 @@ import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.SharePrefUtils;
 import com.dtsgroup.labourlaw.model.EventMessage;
 import com.dtsgroup.labourlaw.model.ItemQuiz;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
-
 
 public class QuizFragment extends Fragment implements View.OnClickListener {
 
@@ -50,6 +45,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     private ImageView ivNext;
     private ImageView ivBack;
     private TextView tvPosItem;
+
     private int posItem = 0;
     private Realm realm = Realm.getDefaultInstance();
     private ShowQuizFragment frag1, frag2, frag3, frag4, frag5, frag6, frag7, frag8, frag9, frag10;
@@ -149,6 +145,18 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                     Intent mIntent = new Intent(getActivity(), ResultQuizActivity.class);
                     int result = SharePrefUtils.getScore(getActivity());
                     mIntent.putExtra(CommonVls.RESULT_QUIZ, result);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(CommonVls.ID_QUIZ_1, listQuiz.get(0).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_2, listQuiz.get(1).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_3, listQuiz.get(2).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_4, listQuiz.get(3).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_5, listQuiz.get(4).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_6, listQuiz.get(5).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_7, listQuiz.get(6).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_8, listQuiz.get(7).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_9, listQuiz.get(8).getId());
+                    bundle.putInt(CommonVls.ID_QUIZ_10, listQuiz.get(9).getId());
+                    mIntent.putExtras(bundle);
                     startActivity(mIntent);
                 }
                 break;

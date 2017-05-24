@@ -14,7 +14,7 @@ import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
 import com.dtsgroup.labourlaw.model.EventMessage;
-import com.dtsgroup.labourlaw.model.JSonItemBookmark;
+import com.dtsgroup.labourlaw.model.ItemBookmark;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class DetailBookmarkActivity extends AppCompatActivity{
 
@@ -31,7 +32,8 @@ public class DetailBookmarkActivity extends AppCompatActivity{
     TextView tvDescription;
     @BindView(R.id.toolbar_detail_bookmark)
     Toolbar toolbar;
-    private JSonItemBookmark itemBookmark;
+    private ItemBookmark itemBookmark;
+    private Realm realm = Realm.getDefaultInstance();
 
 
     @Override
@@ -47,8 +49,8 @@ public class DetailBookmarkActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         if (intent != null) {
-            Bundle bundle = intent.getBundleExtra(CommonVls.BUNDLE_DETAIL_BOOKMARK);
-            itemBookmark = (JSonItemBookmark) bundle.getSerializable(CommonVls.KEY_DETAIL_BOOKMARK);
+            int id = intent.getIntExtra(CommonVls.BUNDLE_DETAIL_LAW,0);
+            itemBookmark = realm.where(ItemBookmark.class).equalTo("id",id).findFirst();
         }
 
         initContent();

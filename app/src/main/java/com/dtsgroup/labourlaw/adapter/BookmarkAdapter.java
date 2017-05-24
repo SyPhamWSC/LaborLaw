@@ -4,7 +4,6 @@ package com.dtsgroup.labourlaw.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,35 +11,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.DetailBookmarkActivity;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
 import com.dtsgroup.labourlaw.interaction.IClickListener;
-import com.dtsgroup.labourlaw.model.EventMessage;
-import com.dtsgroup.labourlaw.model.JSonItemBookmark;
-import com.dtsgroup.labourlaw.service.APIService;
+import com.dtsgroup.labourlaw.model.ItemBookmark;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHolder>{
 
-    private List<JSonItemBookmark> list;
+    private RealmResults<ItemBookmark> list;
     private LayoutInflater layoutInflater;
     private Context context;
     private IClickListener clickListener;
+    private Realm realm = Realm.getDefaultInstance();
 
-    public BookmarkAdapter(Context context, List<JSonItemBookmark> list){
+    public BookmarkAdapter(Context context, RealmResults<ItemBookmark> list){
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
@@ -58,7 +48,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final JSonItemBookmark itemBookmark = list.get(position);
+        final ItemBookmark itemBookmark = list.get(position);
         String lang = LanguageHelper.getLanguage(context);
         if (lang.equals(CommonVls.ENGLISH)) {
             holder.tvNameChapter.setText(itemBookmark.getNameEn());
@@ -66,12 +56,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             holder.tvNameChapter.setText(itemBookmark.getNameVi());
         }
         holder.tvChapter.setText(itemBookmark.getChapter());
-        holder.ivDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.onRemoveBookmark(itemBookmark.getChapter());
-            }
-        });
     }
 
     @Override
@@ -79,9 +63,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         return list.size();
     }
 
-    public void removeItem(int position) {
-        final JSonItemBookmark itemBookmark = list.get(position);
-    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvChapter;
@@ -97,10 +78,40 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     Intent mIntent = new Intent(itemView.getContext(), DetailBookmarkActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(CommonVls.KEY_DETAIL_BOOKMARK,list.get(getAdapterPosition()));
-                    mIntent.putExtra(CommonVls.BUNDLE_DETAIL_BOOKMARK,bundle);
+                    mIntent.putExtra(CommonVls.BUNDLE_DETAIL_BOOKMARK,list.get(getAdapterPosition()).getId());
                     context.startActivity(mIntent);
+                }
+            });
+            ivDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    alertDialogBuilder.setMessage(context.getResources().getString(R.string.delete_item));
+                    alertDialogBuilder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            dialog.dismiss();
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                   RealmResults<ItemBookmark> itemBookmarks = realm.where(ItemBookmark.class).equalTo("id",getAdapterPosition()).findAll();
+                                    itemBookmarks.deleteAllFromRealm();
+                                    list = realm.where(ItemBookmark.class).findAll();
+                                    notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    });
+
+                    alertDialogBuilder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
             });
         }

@@ -15,9 +15,8 @@ import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
 import com.dtsgroup.labourlaw.model.EventMessage;
-import com.dtsgroup.labourlaw.model.JSonItemBookmark;
-import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
-import com.dtsgroup.labourlaw.service.APIService;
+import com.dtsgroup.labourlaw.model.ItemBookmark;
+import com.dtsgroup.labourlaw.model.SubChapterLaw;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -25,11 +24,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ActivityDetailLaw extends AppCompatActivity {
 
@@ -40,7 +36,8 @@ public class ActivityDetailLaw extends AppCompatActivity {
     TextView tvDescription;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private JSonItemSubChapterLaw chapterLaw;
+    private SubChapterLaw chapterLaw;
+    private Realm realm = Realm.getDefaultInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,33 +53,31 @@ public class ActivityDetailLaw extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(CommonVls.GET_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                APIService apiService = retrofit.create(APIService.class);
-
-                Call<JSonItemBookmark> call = apiService.bookmark(chapterLaw.getChapterNameVi(),chapterLaw.getChapterNameEn(),
-                        chapterLaw.getChapterTitleVi(),chapterLaw.getChapterTitleEn(),chapterLaw.getChapterDesVi(),
-                        chapterLaw.getChapterDesEn(),chapterLaw.getSubChapter());
-                call.enqueue(new Callback<JSonItemBookmark>() {
+                RealmResults<ItemBookmark> list = realm.where(ItemBookmark.class).findAll();
+                final ItemBookmark itemBookmark = new ItemBookmark();
+                itemBookmark.setChapter(chapterLaw.getSubChapter());
+                itemBookmark.setTitlevi(chapterLaw.getChapterTitleVi());
+                itemBookmark.setTitleEn(chapterLaw.getChapterTitleEn());
+                itemBookmark.setDescreptionEn(chapterLaw.getChapterDesEn());
+                itemBookmark.setDescreptionVi(chapterLaw.getChapterDesVi());
+                itemBookmark.setNameEn(chapterLaw.getChapterNameEn());
+                itemBookmark.setNameVi(chapterLaw.getChapterNameVi());
+                itemBookmark.setId(list.size());
+                realm.executeTransaction(new Realm.Transaction() {
                     @Override
-                    public void onResponse(Call<JSonItemBookmark> call, Response<JSonItemBookmark> response) {
-                        Toast.makeText(getApplicationContext(),"Bookmarked!",Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Call<JSonItemBookmark> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(),"Can not bookmarked!",Toast.LENGTH_SHORT).show();
+                    public void execute(Realm realm) {
+                        realm.copyToRealmOrUpdate(itemBookmark);
+                        Toast.makeText(ActivityDetailLaw.this,"Bookmarked!!!",Toast.LENGTH_SHORT).show();
                     }
                 });
+                EventBus.getDefault().post(new EventMessage(CommonVls.UPDATE_ADAPTER));
             }
         });
 
         Intent intent = getIntent();
         if (intent != null) {
-            Bundle bundle = intent.getBundleExtra(CommonVls.BUNDLE_DETAIL_LAW);
-            chapterLaw = (JSonItemSubChapterLaw) bundle.getSerializable(CommonVls.KEY_DETAIL_LAW);
+            String subChapter = intent.getStringExtra(CommonVls.BUNDLE_DETAIL_LAW);
+            chapterLaw = realm.where(SubChapterLaw.class).equalTo("subChapter",subChapter).findFirst();
         }
 
         initContent();

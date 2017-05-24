@@ -25,4 +25,5 @@
     <dimen name="height_40dp">40.00dp</dimen>
     <dimen name="padding_10dp">10.00dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_size_14sp">14.00sp</dimen>
 </resources>

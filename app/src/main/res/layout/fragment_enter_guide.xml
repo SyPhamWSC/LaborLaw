@@ -6,7 +6,7 @@
     tools:context="com.dtsgroup.labourlaw.MainActivity">
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="@dimen/item_padding_top"
+            android:layout_marginTop="@dimen/padding_5_dp"
             android:id="@+id/rv_enter_guide"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

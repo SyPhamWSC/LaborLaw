@@ -12,9 +12,12 @@ import com.dtsgroup.labourlaw.model.ItemQuiz;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.model.JSonItemQA;
 import com.dtsgroup.labourlaw.model.JSonItemQuiz;
+import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
+import com.dtsgroup.labourlaw.model.SubChapterLaw;
 import com.dtsgroup.labourlaw.parser.JChapterLaw;
 import com.dtsgroup.labourlaw.parser.JItemQA;
 import com.dtsgroup.labourlaw.parser.JQuiz;
+import com.dtsgroup.labourlaw.parser.JSubChapterLaw;
 import com.dtsgroup.labourlaw.service.APIService;
 
 import java.util.List;
@@ -74,7 +77,6 @@ public class RealmMannager {
 
     public void setDataRealm(){
         setChapterLaw();
-        setSubChapter();
         setItemQA();
         setQuiz();
         SharePrefUtils.updateFirstApp(context,true);
@@ -140,32 +142,35 @@ public class RealmMannager {
         });
     }
 
-    private void setSubChapter() {
+    private void setSubChapter(int parentChapter) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CommonVls.GET_URL+ "getchapters/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIService apiService = retrofit.create(APIService.class);
-//        Call<List<JSonItemSubChapterLaw>> call = apiService.getAllSubChapterLaw(parentChapter);
-//        call.enqueue(new Callback<List<JSonItemSubChapterLaw>>() {
-//            @Override
-//            public void onResponse(Call<List<JSonItemSubChapterLaw>> call, Response<List<JSonItemSubChapterLaw>> response) {
-//
-//                listSubChapter.clear();
-//                List<JSonItemSubChapterLaw> listTemp = response.body();
-//                for (int i = 0; i < listTemp.size(); i++) {
-//                    listSubChapter.add(listTemp.get(i));
-//                }
-//                subLawAdapter.notifyDataSetChanged();
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<JSonItemSubChapterLaw>> call, Throwable t) {
-//                swipeRefreshLayout.setRefreshing(false);
-//                Toast.makeText(SubChapterLawActivity.this,"Load fail", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        Call<List<JSonItemSubChapterLaw>> call = apiService.getAllSubChapterLaw(parentChapter);
+        call.enqueue(new Callback<List<JSonItemSubChapterLaw>>() {
+            @Override
+            public void onResponse(Call<List<JSonItemSubChapterLaw>> call, Response<List<JSonItemSubChapterLaw>> response) {
+
+                List<JSonItemSubChapterLaw> listTemp = response.body();
+                for (int i = 0; i < listTemp.size(); i++) {
+                    final SubChapterLaw subChapterLaw = JSubChapterLaw.getSubChapterLaw(listTemp.get(i));
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.copyToRealmOrUpdate(subChapterLaw);
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<JSonItemSubChapterLaw>> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -188,6 +193,12 @@ public class RealmMannager {
                             realm.copyToRealmOrUpdate(chapterLaw);
                         }
                     });
+                }
+                for (int i = 0; i < list.size(); i++) {
+                    if(list.get(i).getTypeChapter().equals("content")){
+                        int numChapter = Integer.valueOf(list.get(i).getNumChapter());
+                        setSubChapter(numChapter);
+                    }
                 }
                 Log.e(TAG, "load chapter law : ok" );
             }

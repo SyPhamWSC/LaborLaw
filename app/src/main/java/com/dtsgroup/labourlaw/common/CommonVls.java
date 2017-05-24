@@ -20,16 +20,16 @@ public class CommonVls {
 
     public static final String RESULT_QUIZ = "result";
 
-    public static final String QUESTION_QUIZ_1 = "q1";
-    public static final String QUESTION_QUIZ_2 = "q2";
-    public static final String QUESTION_QUIZ_3 = "q3";
-    public static final String QUESTION_QUIZ_4 = "q4";
-    public static final String QUESTION_QUIZ_5 = "q5";
-    public static final String QUESTION_QUIZ_6 = "q6";
-    public static final String QUESTION_QUIZ_7 = "q7";
-    public static final String QUESTION_QUIZ_8 = "q8";
-    public static final String QUESTION_QUIZ_9 = "q9";
-    public static final String QUESTION_QUIZ_10 = "q10";
+    public static final String ID_QUIZ_1 = "id_1";
+    public static final String ID_QUIZ_2 = "id_2";
+    public static final String ID_QUIZ_3 = "id_3";
+    public static final String ID_QUIZ_4 = "id_4";
+    public static final String ID_QUIZ_5 = "id_5";
+    public static final String ID_QUIZ_6 = "id_6";
+    public static final String ID_QUIZ_7 = "id_7";
+    public static final String ID_QUIZ_8 = "id_8";
+    public static final String ID_QUIZ_9 = "id_9";
+    public static final String ID_QUIZ_10 = "id_10";
 
     public static final String SUB_CHAPTER_LAW = "sub_chapter";
     public static final String KEY_DETAIL_LAW = "DETAIL_LAW";

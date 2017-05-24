@@ -12,17 +12,17 @@ import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.ActivityDetailLaw;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
-import com.dtsgroup.labourlaw.model.SubChapterLaw;
+import com.dtsgroup.labourlaw.model.JSonItemSubChapterLaw;
 
-import io.realm.RealmResults;
+import java.util.List;
 
-public class SubLawAdapter  extends RecyclerView.Adapter<SubLawAdapter.ViewHolder>{
 
-    private RealmResults<SubChapterLaw> list;
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
+    private List<JSonItemSubChapterLaw> list;
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public SubLawAdapter(Context context, RealmResults<SubChapterLaw> list){
+    public SearchAdapter(Context context, List<JSonItemSubChapterLaw> list){
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
@@ -31,12 +31,12 @@ public class SubLawAdapter  extends RecyclerView.Adapter<SubLawAdapter.ViewHolde
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = layoutInflater.inflate(R.layout.list_item_sub_law, parent, false);
-        return new SubLawAdapter.ViewHolder(itemView);
+        return new SearchAdapter.ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final SubChapterLaw item = list.get(position);
+        final JSonItemSubChapterLaw item = list.get(position);
 
         String lang = LanguageHelper.getLanguage(context);
         if (lang.equals(CommonVls.ENGLISH)) {
@@ -54,6 +54,7 @@ public class SubLawAdapter  extends RecyclerView.Adapter<SubLawAdapter.ViewHolde
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

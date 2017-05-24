@@ -36,6 +36,7 @@
             android:name=".activity.SettingActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".activity.ReviewQuizActivity"/>
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
