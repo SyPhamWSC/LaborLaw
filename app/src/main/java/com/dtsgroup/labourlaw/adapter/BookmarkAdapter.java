@@ -16,7 +16,6 @@ import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.activity.DetailBookmarkActivity;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
-import com.dtsgroup.labourlaw.interaction.IClickListener;
 import com.dtsgroup.labourlaw.model.ItemBookmark;
 
 import io.realm.Realm;
@@ -27,7 +26,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
     private RealmResults<ItemBookmark> list;
     private LayoutInflater layoutInflater;
     private Context context;
-    private IClickListener clickListener;
     private Realm realm = Realm.getDefaultInstance();
 
     public BookmarkAdapter(Context context, RealmResults<ItemBookmark> list){
@@ -36,9 +34,6 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setClickListener(IClickListener clickListener) {
-        this.clickListener = clickListener;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

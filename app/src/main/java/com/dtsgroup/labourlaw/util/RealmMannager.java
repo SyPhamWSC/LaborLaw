@@ -1,14 +1,16 @@
 package com.dtsgroup.labourlaw.util;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.SharePrefUtils;
+import com.dtsgroup.labourlaw.model.Appendix;
 import com.dtsgroup.labourlaw.model.ChapterLaw;
+import com.dtsgroup.labourlaw.model.ItemAppendix;
 import com.dtsgroup.labourlaw.model.ItemQA;
 import com.dtsgroup.labourlaw.model.ItemQuiz;
+import com.dtsgroup.labourlaw.model.JAppendix;
 import com.dtsgroup.labourlaw.model.JSonChapterLaw;
 import com.dtsgroup.labourlaw.model.JSonItemQA;
 import com.dtsgroup.labourlaw.model.JSonItemQuiz;
@@ -34,10 +36,6 @@ public class RealmMannager {
     private static final int LOAD_DATA_DONE = 10;
 
     private Realm realm = Realm.getDefaultInstance();
-    private boolean isHasChapterLaw = false;
-    private boolean isHasRealm = false;
-    private boolean isHasItemQA = false;
-    private Handler mHandler;
     private Context context;
 
     public RealmMannager(Context context) {
@@ -79,6 +77,7 @@ public class RealmMannager {
         setChapterLaw();
         setItemQA();
         setQuiz();
+        setAppdendix();
         SharePrefUtils.updateFirstApp(context,true);
     }
 
@@ -206,6 +205,35 @@ public class RealmMannager {
             @Override
             public void onFailure(Call<List<JSonChapterLaw>> call, Throwable t) {
                 Log.e(TAG, "load chapter law : fail" );
+            }
+        });
+    }
+
+    private void setAppdendix(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(CommonVls.GET_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        APIService apiService = retrofit.create(APIService.class);
+        Call<List<Appendix>> call = apiService.getAllAppendix();
+        call.enqueue(new Callback<List<Appendix>>() {
+            @Override
+            public void onResponse(Call<List<Appendix>> call, Response<List<Appendix>> response) {
+                List<Appendix> listTemp = response.body();
+                for (int i = 0; i < listTemp.size(); i++) {
+                    final ItemAppendix itemAppendix = JAppendix.getAppendix(listTemp.get(i));
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            Log.e(TAG, "execute: from realm");
+                            realm.copyToRealmOrUpdate(itemAppendix);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Appendix>> call, Throwable t) {
             }
         });
     }

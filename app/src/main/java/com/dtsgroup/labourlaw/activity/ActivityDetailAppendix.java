@@ -1,6 +1,8 @@
 package com.dtsgroup.labourlaw.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +12,11 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.dtsgroup.labourlaw.R;
 import com.dtsgroup.labourlaw.common.CommonVls;
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
-import com.dtsgroup.labourlaw.model.Appendix;
 import com.dtsgroup.labourlaw.model.EventMessage;
+import com.dtsgroup.labourlaw.model.ItemAppendix;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,6 +24,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 
 public class ActivityDetailAppendix extends AppCompatActivity {
@@ -32,7 +34,8 @@ public class ActivityDetailAppendix extends AppCompatActivity {
     ImageView imgPicDetail;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    private Appendix appendix;
+    private ItemAppendix appendix;
+    private Realm realm = Realm.getDefaultInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,10 +49,12 @@ public class ActivityDetailAppendix extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            appendix = (Appendix) intent.getBundleExtra(CommonVls.BUNDLE_APPENDIX).getSerializable(CommonVls.KEY_APPENDIX);
+            int id = intent.getIntExtra(CommonVls.BUNDLE_APPENDIX,0);
+            appendix = realm.where(ItemAppendix.class).equalTo("id",id).findFirst();
         }
 
-        Glide.with(this).load(appendix.getUrl()).into(imgPicDetail);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(appendix.getImg(),0,appendix.getImg().length);
+        imgPicDetail.setImageBitmap(bitmap);
         initViews();
     }
 

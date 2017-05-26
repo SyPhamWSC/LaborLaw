@@ -1,10 +1,8 @@
 package com.dtsgroup.labourlaw.fragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -86,29 +84,4 @@ public class BookmarkFragment extends Fragment {
 
     }
 
-    public void onRemoveBookmark(final String chapter) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setMessage(getActivity().getResources().getString(R.string.delete_item));
-        alertDialogBuilder.setPositiveButton(getActivity().getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int arg1) {
-                dialog.dismiss();
-                removeBookmark(chapter);
-            }
-        });
-
-        alertDialogBuilder.setNegativeButton(getActivity().getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    private void removeBookmark(String chapter){
-
-    }
 }
