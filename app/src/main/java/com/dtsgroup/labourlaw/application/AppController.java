@@ -4,11 +4,14 @@ import android.app.Application;
 import android.content.Context;
 
 import com.dtsgroup.labourlaw.helper.LanguageHelper;
+import com.dtsgroup.labourlaw.service.ConnectivityReceiver;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 public class AppController extends Application {
+
+    private static AppController mInstance;
 
     @Override
     public void onCreate() {
@@ -20,6 +23,16 @@ public class AppController extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
+
+        mInstance = this;
+    }
+
+    public static synchronized AppController getmInstance(){
+        return mInstance;
+    }
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+        ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 
     @Override

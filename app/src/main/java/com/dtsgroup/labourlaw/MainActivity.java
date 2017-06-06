@@ -163,14 +163,14 @@ public class MainActivity extends AppCompatActivity {
         ItemLvDrawer quiz = new ItemLvDrawer(getResources().getString(R.string.quiz), R.mipmap.ic_quiz_unselect, R.mipmap.ic_quiz_selected);
         ItemLvDrawer bookmark = new ItemLvDrawer(getResources().getString(R.string.book_mark), R.mipmap.ic_bookmark_unselected, R.mipmap.ic_bookmark_selected);
         ItemLvDrawer askedQuestion = new ItemLvDrawer(getResources().getString(R.string.ask), R.mipmap.ic_question_unselected, R.mipmap.ic_question_selected);
-        ItemLvDrawer updates = new ItemLvDrawer(getResources().getString(R.string.check_update), R.mipmap.ic_update_unselected, R.mipmap.ic_update_selected);
+        //ItemLvDrawer updates = new ItemLvDrawer(getResources().getString(R.string.check_update), R.mipmap.ic_update_unselected, R.mipmap.ic_update_selected);
         ItemLvDrawer settings = new ItemLvDrawer(getResources().getString(R.string.settings), R.mipmap.ic_settings_unselected, R.mipmap.ic_settings_selected);
 
         lv.add(enterGuide);
         lv.add(quiz);
         lv.add(bookmark);
         lv.add(askedQuestion);
-        lv.add(updates);
+        //lv.add(updates);
         lv.add(settings);
 
         return lv;
@@ -196,9 +196,9 @@ public class MainActivity extends AppCompatActivity {
             case CommonVls.ASKED_POS:
                 callFragment(askedFragment);
                 break;
-            case CommonVls.UPDATES_POS:
-                callFragment(updatesFragment);
-                break;
+//            case CommonVls.UPDATES_POS:
+//                callFragment(updatesFragment);
+//                break;
             case CommonVls.SETTINGS_POS:
                 callFragment(settingsFragment);
                 break;
