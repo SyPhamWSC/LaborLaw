@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">"Labour Law "</string>
+    <string name="app_name">"OSH "</string>
     <string name="nav_open">open</string>
     <string name="nav_close">close</string>
     <string name="enter_guide">Enter Guide</string>
@@ -37,4 +37,5 @@
     <string name="share_this_app">Share this app</string>
     <string name="give_us_your_feedback">Give us your feedback</string>
     <string name="about_better_work">About EHS</string>
+    <string name="lucky_appease">Very Good!!!</string>
 </resources>

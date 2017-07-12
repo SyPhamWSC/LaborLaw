@@ -33,13 +33,33 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RealmMannager {
     private static final String TAG = "RealmMannager";
-    private static final int LOAD_DATA_DONE = 10;
+    public static final int LOAD_SUCCESS = 1;
+    private static int LOAD_CHAPTER_DONE = 0;
+    private static int LOAD_QUIZ_DONE = 0;
+    private static int LOAD_ITEM_QA_DONE = 0;
+    private static int LOAD_APPDENDIX_DONE = 0;
 
     private Realm realm = Realm.getDefaultInstance();
     private Context context;
 
     public RealmMannager(Context context) {
         this.context = context;
+    }
+
+    public int getLoadChapterDone() {
+        return LOAD_CHAPTER_DONE;
+    }
+
+    public int getLoadQuizDone() {
+        return LOAD_QUIZ_DONE;
+    }
+
+    public int getLoadItemQaDone() {
+        return LOAD_ITEM_QA_DONE;
+    }
+
+    public int getLoadAppdendixDone() {
+        return LOAD_APPDENDIX_DONE;
     }
 
     //    private static RealmMannager instance;
@@ -101,6 +121,7 @@ public class RealmMannager {
                         }
                     });
                 }
+                LOAD_QUIZ_DONE = LOAD_SUCCESS;
             }
 
             @Override
@@ -130,7 +151,7 @@ public class RealmMannager {
                         }
                     });
                 }
-
+                LOAD_ITEM_QA_DONE = LOAD_SUCCESS;
                 Log.e(TAG, "load itemQA: ok" );
             }
 
@@ -143,7 +164,7 @@ public class RealmMannager {
 
     private void setSubChapter(int parentChapter) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(CommonVls.GET_URL+ "getchapters/")
+                .baseUrl(CommonVls.GET_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIService apiService = retrofit.create(APIService.class);
@@ -162,7 +183,7 @@ public class RealmMannager {
                         }
                     });
                 }
-
+                Log.e(TAG,"subchapter ok");
             }
 
             @Override
@@ -199,6 +220,7 @@ public class RealmMannager {
                         setSubChapter(numChapter);
                     }
                 }
+                LOAD_CHAPTER_DONE = LOAD_SUCCESS;
                 Log.e(TAG, "load chapter law : ok" );
             }
 
@@ -230,6 +252,7 @@ public class RealmMannager {
                         }
                     });
                 }
+                LOAD_APPDENDIX_DONE = LOAD_SUCCESS;
             }
 
             @Override

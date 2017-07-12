@@ -16,7 +16,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIService {
     @GET("getlaws")
@@ -29,8 +29,8 @@ public interface APIService {
     Call<List<JSonItemQuiz>> getAllQiz();
     @GET("get_appendix")
     Call<List<Appendix>> getAllAppendix();
-    @GET("{num_chapter}")
-    Call<List<JSonItemSubChapterLaw>> getAllSubChapterLaw(@Path("num_chapter") int num_chapter);
+    @GET("getchapters")
+    Call<List<JSonItemSubChapterLaw>> getAllSubChapterLaw(@Query("num_chapter") int num_chapter);
 
     @FormUrlEncoded
     @POST("bookmark")

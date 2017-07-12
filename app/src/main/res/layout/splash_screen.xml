@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/logo_ehs"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fr_layout"/>
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/logo_ehs"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/iv_loading"
+            android:layout_width="@dimen/loading_size_32dp"
+            android:layout_height="@dimen/loading_size_32dp"
+            android:src="@mipmap/circles_loader"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fr_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp" />
+
+
+</GridLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -43,6 +44,14 @@ public class ResultQuizActivity extends AppCompatActivity{
         initsView();
         mIntent = getIntent();
         int result = mIntent.getIntExtra(CommonVls.RESULT_QUIZ,0);
+
+        if(result<10){
+            tvAppease.setText(getResources().getString(R.string.unlucky_appease));
+            tvAppease.setGravity(Gravity.CENTER_HORIZONTAL);
+        } else if(result==10){
+            tvAppease.setText(getResources().getString(R.string.lucky_appease));
+            tvAppease.setGravity(Gravity.CENTER_HORIZONTAL);
+        }
         tvResult.setText(result + "/10");
         tvTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override

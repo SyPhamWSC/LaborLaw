@@ -9,7 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dtsgroup.labourlaw.MainActivity;
@@ -26,6 +29,7 @@ public class SplashScreen extends AppCompatActivity implements ConnectivityRecei
     private static final String TAG = "SplashScreen";
     private static final int RELOAD_DB = 1;
     private static final int EXIT_APP = 2;
+    private static final int START_APP = 3;
 
     private Realm realm = Realm.getDefaultInstance();
     private int timeWait = 3000;
@@ -33,11 +37,17 @@ public class SplashScreen extends AppCompatActivity implements ConnectivityRecei
     private FrameLayout frameLayout;
     private Handler handler;
 
+    private ImageView ivLoading;
+    private Animation loading;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
         frameLayout = (FrameLayout) findViewById(R.id.fr_layout);
+        ivLoading = (ImageView) findViewById(R.id.iv_loading);
+        loading = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
+        ivLoading.startAnimation(loading);
         realmMannager = new RealmMannager(this);
         checkConnection();
         handler = new Handler(){
@@ -56,10 +66,15 @@ public class SplashScreen extends AppCompatActivity implements ConnectivityRecei
                                     startApp();
                                 }
                             }
-                        },8000);
+                        },5000);
                         break;
                     case EXIT_APP:
                         System.exit(0);
+                        break;
+                    case START_APP:
+                        ivLoading.clearAnimation();
+                        startApp();
+                        break;
                 }
             }
         };
@@ -71,7 +86,7 @@ public class SplashScreen extends AppCompatActivity implements ConnectivityRecei
         loadDB();
     }
 
-    private void loadDB() {
+    private void loadDB(){
         if(!Prefs.with(SplashScreen.this).getPreLoad()){
             boolean isConnected = ConnectivityReceiver.isConnected();
             if(!isConnected){
@@ -80,8 +95,8 @@ public class SplashScreen extends AppCompatActivity implements ConnectivityRecei
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        int mili = 1000;
-                        while (!ConnectivityReceiver.isConnected() && mili > 0){
+                     int mili = 1000;
+                        while (!ConnectivityReceiver.isConnected()&&mili >0){
                             mili -= 1;
                             try {
                                 Thread.sleep(10);
@@ -100,25 +115,39 @@ public class SplashScreen extends AppCompatActivity implements ConnectivityRecei
                             msg.setTarget(handler);
                             msg.sendToTarget();
                         }
-
                     }
                 }).start();
             }else {
                 showSnack(isConnected);
                 realmMannager.setDataRealm();
-                Prefs.with(SplashScreen.this).setPreLoad(true);
-
-                new Handler().postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if(SharePrefUtils.isFirstApp(SplashScreen.this)){
-                            startApp();
+                        while (realmMannager.getLoadChapterDone()!=RealmMannager.LOAD_SUCCESS){
+
+                        }
+                        while (realmMannager.getLoadAppdendixDone()!=RealmMannager.LOAD_SUCCESS){
+
+                        }
+                        while (realmMannager.getLoadItemQaDone()!=RealmMannager.LOAD_SUCCESS){
+
+                        }
+                        while (realmMannager.getLoadQuizDone()!=RealmMannager.LOAD_SUCCESS){
+
+                        }
+                        if(realmMannager.getLoadChapterDone() == RealmMannager.LOAD_SUCCESS &&
+                                realmMannager.getLoadAppdendixDone() == RealmMannager.LOAD_SUCCESS &&
+                                realmMannager.getLoadItemQaDone()==RealmMannager.LOAD_SUCCESS &&
+                                realmMannager.getLoadQuizDone()==RealmMannager.LOAD_SUCCESS){
+                            Message msg = new Message();
+                            msg.what = START_APP;
+                            msg.setTarget(handler);
+                            msg.sendToTarget();
                         }
                     }
-                },5000);
+                }).start();
+                Prefs.with(SplashScreen.this).setPreLoad(true);
             }
-
-
         }else {
             Thread splashThread = new Thread(){
                 @Override
@@ -138,52 +167,8 @@ public class SplashScreen extends AppCompatActivity implements ConnectivityRecei
             };
             splashThread.start();
         }
-
     }
 
-//    @Override
-//    protected void onStart() {
-//        if(!Prefs.with(SplashScreen.this).getPreLoad()){
-//            boolean isConnected = ConnectivityReceiver.isConnected();
-//            if(!isConnected){
-//                showSnack(isConnected);
-//            }else {
-//                realmMannager.setDataRealm();
-//                Prefs.with(SplashScreen.this).setPreLoad(true);
-//
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if(SharePrefUtils.isFirstApp(SplashScreen.this)){
-//                            startApp();
-//                        }
-//                    }
-//                },5000);
-//            }
-//
-//
-//        }else {
-//            Thread splashThread = new Thread(){
-//                @Override
-//                public void run() {
-//                    try {
-//                        int waited = 0;
-//                        while(waited < timeWait) {
-//                            sleep(100);
-//                            waited += 100;
-//                        }
-//                    } catch(InterruptedException e) {
-//                        // do nothing
-//                    } finally {
-//                        startApp();
-//                    }
-//                }
-//            };
-//            splashThread.start();
-//        }
-//
-//        super.onStart();
-//    }
 
     private void startApp(){
         Intent mIntent = new Intent(SplashScreen.this, MainActivity.class);

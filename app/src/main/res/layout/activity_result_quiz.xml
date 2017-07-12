@@ -17,7 +17,6 @@
         android:layout_margin="@dimen/padding_10dp"
         android:textColor="#FF8A80"
         android:textSize="@dimen/text_size_24sp"
-        android:text="@string/unlucky_appease"
         android:gravity="center_horizontal"/>
     <RelativeLayout
         android:layout_width="match_parent"
